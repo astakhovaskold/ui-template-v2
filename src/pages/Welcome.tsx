@@ -6,7 +6,7 @@ import {Container} from '../components/Presentation/containers';
 import {useAccount} from '../hooks/useAccount';
 
 const Welcome = memo((): JSX.Element | null => {
-    const {account} = useAccount();
+    const account = useAccount();
 
     if (!account) return null;
 
@@ -15,7 +15,10 @@ const Welcome = memo((): JSX.Element | null => {
     return (
         <Container>
             <Space direction="vertical">
-                <h1>Welcome, {first_name}</h1>
+                <h1>
+                    Welcome,&nbsp;
+                    {first_name}
+                </h1>
 
                 <ExitButton />
             </Space>

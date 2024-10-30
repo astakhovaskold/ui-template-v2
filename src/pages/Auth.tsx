@@ -1,16 +1,15 @@
 import {Button, Col, Form, Input, Row} from 'antd';
 import {memo, useCallback} from 'react';
-import { LoginData } from '../entities/account/types';
+
+import {LoginData} from '../entities/account/types';
 
 const {Item} = Form;
 
 const Auth = memo((): JSX.Element | null => {
-    const onFinish = useCallback(
-        (values: LoginData) => {
-            // dispatch(auth(values));
-        },
-        [],
-    );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const onFinish = useCallback((values: LoginData) => {
+        // dispatch(auth(values));
+    }, []);
 
     return (
         <Row>

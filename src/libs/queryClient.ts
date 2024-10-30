@@ -1,6 +1,6 @@
+import {QueryClient, QueryFunction, QueryKey} from '@tanstack/react-query';
 import axios from 'axios';
 import qs from 'qs';
-import {QueryClient, QueryFunction, QueryKey} from '@tanstack/react-query';
 
 const isSingleArray = (queryKey: QueryKey): queryKey is [string] => {
     return queryKey.length === 1;

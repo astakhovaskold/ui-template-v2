@@ -1,6 +1,6 @@
 import {RcFile} from 'antd/es/upload';
 
-import {ROLE, UserDTO} from '../store/account/types';
+import {ROLE, UserDTO} from '../entities/account/types';
 
 export default class Utils {
     static hasAccess(user: UserDTO, roles: Array<ROLE> = []): boolean {

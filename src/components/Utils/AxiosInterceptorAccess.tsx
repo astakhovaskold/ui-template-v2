@@ -6,7 +6,6 @@ import {useAuth} from '../../hooks/useAuth';
 const AxiosInterceptorAccess = memo((): JSX.Element | null => {
     const isAuth = useAuth();
 
-
     useEffect(() => {
         if (isAuth) {
             const interceptor = axios.interceptors.response.use(

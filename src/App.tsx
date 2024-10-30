@@ -5,11 +5,11 @@ import {memo} from 'react';
 import {Outlet} from 'react-router';
 
 import AxiosInterceptorAccess from './components/Utils/AxiosInterceptorAccess';
+import {AccountDTO} from './entities/account/types';
 import {useAuth} from './hooks/useAuth';
 import useLS from './hooks/useLS';
 
 import {globalStyles} from './styles/global';
-import {AccountDTO} from './entities/account/types';
 
 const {Header, Content} = Layout;
 
