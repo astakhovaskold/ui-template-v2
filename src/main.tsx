@@ -5,14 +5,12 @@ import dayjs from 'dayjs';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'dayjs/locale/ru';
-import {QueryClientProvider} from 'react-query';
-import {ReactQueryDevtools} from 'react-query/devtools';
-import {Provider} from 'react-redux';
+import {QueryClientProvider} from '@tanstack/react-query';
+import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
 
 import queryClient from './libs/queryClient';
 import validateMessages from './libs/validateMessages';
 import Navigation from './router/Navigation';
-import {store} from './store/store';
 
 dayjs.locale('ru');
 
@@ -20,12 +18,10 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
             <ConfigProvider locale={ruRU} form={{validateMessages}}>
-                <Provider store={store}>
                     <Navigation />
-                </Provider>
             </ConfigProvider>
 
-            <ReactQueryDevtools position="bottom-right" />
+            <ReactQueryDevtools />
         </QueryClientProvider>
     </React.StrictMode>,
 );

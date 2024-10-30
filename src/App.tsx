@@ -7,11 +7,9 @@ import {Outlet} from 'react-router';
 import AxiosInterceptorAccess from './components/Utils/AxiosInterceptorAccess';
 import {useAuth} from './hooks/useAuth';
 import useLS from './hooks/useLS';
-import {logout, setAuth} from './store/account/accountSlice';
-import {AccountDTO} from './store/account/types';
-import {useAppDispatch} from './store/hooks';
 
 import {globalStyles} from './styles/global';
+import {AccountDTO} from './entities/account/types';
 
 const {Header, Content} = Layout;
 
@@ -26,17 +24,15 @@ const contentCss = css`
 const App = memo((): JSX.Element | null => {
     const isAuth = useAuth();
 
-    const dispatch = useAppDispatch();
-
     useLS<AccountDTO>('account', account => {
         if (account) {
-            dispatch(setAuth(account));
+            // dispatch(setAuth(account));
         } else {
-            dispatch(
-                logout({
-                    quiet: true,
-                }),
-            );
+            // dispatch(
+            //     logout({
+            //         quiet: true,
+            //     }),
+            // );
         }
     });
 

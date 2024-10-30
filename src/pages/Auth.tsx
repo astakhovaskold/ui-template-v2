@@ -1,20 +1,15 @@
 import {Button, Col, Form, Input, Row} from 'antd';
 import {memo, useCallback} from 'react';
-
-import {auth} from '../store/account/accountSlice';
-import {LoginData} from '../store/account/types';
-import {useAppDispatch} from '../store/hooks';
+import { LoginData } from '../entities/account/types';
 
 const {Item} = Form;
 
 const Auth = memo((): JSX.Element | null => {
-    const dispatch = useAppDispatch();
-
     const onFinish = useCallback(
         (values: LoginData) => {
-            dispatch(auth(values));
+            // dispatch(auth(values));
         },
-        [dispatch],
+        [],
     );
 
     return (
