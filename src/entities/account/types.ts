@@ -34,6 +34,7 @@ export interface AccountDTO {
 
 export interface AccountState {
     account?: AccountDTO;
+    setAccount: (account?: AccountDTO) => void;
     loggedOut: boolean;
 }
 
