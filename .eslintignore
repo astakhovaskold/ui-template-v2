@@ -1,2 +1,5 @@
 /node_modules
 /build
+
+tailwind.config.ts
+postcss.config.js
