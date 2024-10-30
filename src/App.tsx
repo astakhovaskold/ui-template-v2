@@ -1,25 +1,20 @@
-import {css} from '@emotion/css';
 import {Global} from '@emotion/react';
 import {Layout} from 'antd';
 import {memo} from 'react';
 import {Outlet} from 'react-router';
 
+import Header from './components/Header/Header';
+
+import Sidebar from './components/Sidebar/Sidebar';
 import AxiosInterceptorAccess from './components/Utils/AxiosInterceptorAccess';
 import {AccountDTO} from './entities/account/types';
 import {useAuth} from './hooks/useAuth';
 import useLS from './hooks/useLS';
 
 import {globalStyles} from './styles/global';
+import './styles/main.css';
 
-const {Header, Content} = Layout;
-
-const headerCss = css`
-    height: 80px;
-`;
-
-const contentCss = css`
-    padding: 16px 0;
-`;
+const {Content} = Layout;
 
 const App = memo((): JSX.Element | null => {
     const isAuth = useAuth();
@@ -42,11 +37,17 @@ const App = memo((): JSX.Element | null => {
 
             <AxiosInterceptorAccess />
 
-            {isAuth && <Header className={headerCss} />}
+            <Layout style={{minHeight: '100vh'}}>
+                <Sidebar />
 
-            <Content className={contentCss}>
-                <Outlet />
-            </Content>
+                <Layout>
+                    {isAuth && <Header />}
+
+                    <Content className="px-5 py-4">
+                        <Outlet />
+                    </Content>
+                </Layout>
+            </Layout>
         </>
     );
 });

@@ -26,7 +26,7 @@ const Auth = memo((): JSX.Element | null => {
                     </Item>
 
                     <Button type="primary" htmlType="submit">
-                        Login
+                        Log In
                     </Button>
                 </Form>
             </Col>

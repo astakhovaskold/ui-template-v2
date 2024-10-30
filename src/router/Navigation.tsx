@@ -5,6 +5,7 @@ import {createBrowserRouter} from 'react-router-dom';
 
 import App from '../App';
 
+import Users from '../pages/Users';
 import Welcome from '../pages/Welcome';
 
 import {RouteGuard} from './RouteGuard';
@@ -25,6 +26,8 @@ const Navigation = memo(() => {
                                 <Route element={<RouteGuard restrictedWithAuth isPublic />}>
                                     <Route path="/auth" element={<Auth />} />
                                 </Route>
+
+                                <Route path="/users" element={<Users />} />
 
                                 <Route path="/unauthorized" element={<Unauthorized />} />
 
