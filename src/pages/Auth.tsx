@@ -1,15 +1,26 @@
 import {Button, Col, Form, Input, Row} from 'antd';
 import {memo, useCallback} from 'react';
 
-import {LoginData} from '../entities/account/types';
+import {LoginData, ROLE} from '../entities/account/types';
+import useAccount from '../store/account';
 
 const {Item} = Form;
 
 const Auth = memo((): JSX.Element | null => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const onFinish = useCallback((values: LoginData) => {
-        // dispatch(auth(values));
-    }, []);
+    const setAccount = useAccount(state => state.setAccount);
+
+    const onFinish = useCallback(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        (values: LoginData) => {
+            // dispatch(auth(values));
+            setAccount({
+                user: {id: '0', first_name: 'Alex', last_name: 'M', email: 'mail@example.com', role: ROLE.ADMIN},
+                access_token: '0000-0000',
+                refresh_token: '0000-0000',
+            });
+        },
+        [setAccount],
+    );
 
     return (
         <Row>

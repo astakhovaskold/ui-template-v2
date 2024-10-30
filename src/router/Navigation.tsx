@@ -27,7 +27,9 @@ const Navigation = memo(() => {
                                     <Route path="/auth" element={<Auth />} />
                                 </Route>
 
-                                <Route path="/users" element={<Users />} />
+                                <Route element={<RouteGuard />}>
+                                    <Route path="/users" element={<Users />} />
+                                </Route>
 
                                 <Route path="/unauthorized" element={<Unauthorized />} />
 

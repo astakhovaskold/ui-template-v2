@@ -37,17 +37,21 @@ const App = memo((): JSX.Element | null => {
 
             <AxiosInterceptorAccess />
 
-            <Layout style={{minHeight: '100vh'}}>
-                <Sidebar />
+            {isAuth ? (
+                <Layout style={{minHeight: '100vh'}}>
+                    <Sidebar />
 
-                <Layout>
-                    {isAuth && <Header />}
+                    <Layout>
+                        {isAuth && <Header />}
 
-                    <Content className="px-5 py-4">
-                        <Outlet />
-                    </Content>
+                        <Content className="px-5 py-4">
+                            <Outlet />
+                        </Content>
+                    </Layout>
                 </Layout>
-            </Layout>
+            ) : (
+                <Outlet />
+            )}
         </>
     );
 });

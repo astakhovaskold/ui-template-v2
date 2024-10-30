@@ -4,7 +4,7 @@ import {Avatar, Button, Col, Divider, Popover, Row, Typography} from 'antd';
 import {memo} from 'react';
 import {Link} from 'react-router-dom';
 
-import {useAccount} from '../hooks/useAccount';
+import useAccount from '../store/account';
 
 const {Title, Text} = Typography;
 
@@ -41,7 +41,8 @@ const UserInfo = styled.div`
 `;
 
 const ProfileButton = memo((): JSX.Element | null => {
-    const account = useAccount();
+    const account = useAccount(state => state.account);
+    const setAccount = useAccount(state => state.setAccount);
 
     return (
         <Popover
@@ -71,7 +72,9 @@ const ProfileButton = memo((): JSX.Element | null => {
                         </Col>
 
                         <Col>
-                            <Button type="primary">Log out</Button>
+                            <Button type="primary" onClick={() => setAccount(undefined)}>
+                                Log out
+                            </Button>
                         </Col>
                     </Row>
                 </Content>
