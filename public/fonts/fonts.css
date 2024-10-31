@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter-VariableFont.ttf') format('truetype');
+    font-weight: 100 900;
+    font-stretch: 50% 200%;
+    font-display: swap;
+}
