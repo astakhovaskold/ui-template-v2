@@ -2,7 +2,7 @@ import {useEffect, useRef, useState, useMemo} from 'react';
 
 function useLS<T>(defaultName: string, fn: (data?: T) => void): [T | undefined] {
     const name = useMemo(() => {
-        return `${_UNIQUE_STATE}_${defaultName}`;
+        return `${__UNIQUE_STATE__}_${defaultName}`;
     }, [defaultName]);
 
     const [storage, setStorage] = useState<T | undefined>(() => {

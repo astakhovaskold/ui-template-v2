@@ -1,10 +1,13 @@
 import axios from 'axios';
 import {memo, useEffect} from 'react';
 
-import {useAuth} from '../../hooks/useAuth';
+import {useAuth} from '@/hooks/useAuth';
+import useAccount from '@/store/account';
 
 const AxiosInterceptorAccess = memo((): JSX.Element | null => {
     const isAuth = useAuth();
+
+    const {logout} = useAccount(state => state);
 
     useEffect(() => {
         if (isAuth) {
@@ -14,7 +17,7 @@ const AxiosInterceptorAccess = memo((): JSX.Element | null => {
                 },
                 error => {
                     if (error?.response?.status === 401) {
-                        // dispatch(logout({quiet: true}));
+                        logout();
                     }
 
                     return Promise.reject(error);
@@ -25,7 +28,7 @@ const AxiosInterceptorAccess = memo((): JSX.Element | null => {
                 axios.interceptors.response.eject(interceptor);
             };
         }
-    }, [isAuth]);
+    }, [isAuth, logout]);
 
     return null;
 });

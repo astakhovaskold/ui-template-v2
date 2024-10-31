@@ -5,18 +5,18 @@
 import {Col, Row} from 'antd';
 import {memo} from 'react';
 
-import UsersList from './../entities/users/UsersList';
+import PurchaseOrdersList from '@/app/entities/purchase-orders/PurchaseOrdersList';
 
-const Users = memo((): JSX.Element | null => {
+const PurchaseOrders = memo((): JSX.Element | null => {
     return (
         <Row gutter={24} align="middle">
             <Col flex="auto">
                 <h1 className="font-h3">Users</h1>
 
-                <UsersList />
+                <PurchaseOrdersList />
             </Col>
         </Row>
     );
 });
 
-export default Users;
+export default PurchaseOrders;

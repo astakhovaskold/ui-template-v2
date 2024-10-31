@@ -1,10 +1,10 @@
 import {Space} from 'antd';
 import {memo} from 'react';
 
-import {useAccount} from '../hooks/useAccount';
+import useAccount from '@/store/account';
 
 const Welcome = memo((): JSX.Element | null => {
-    const account = useAccount();
+    const account = useAccount(state => state.account);
 
     if (!account) return null;
 

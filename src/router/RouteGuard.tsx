@@ -2,6 +2,7 @@ import {memo, useEffect, useMemo} from 'react';
 import {Outlet, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 
 import {useAuth} from '../hooks/useAuth';
+import useAccount from '../store/account';
 
 interface RouteGuardProps {
     restrictedWithAuth?: boolean;
@@ -10,8 +11,9 @@ interface RouteGuardProps {
 }
 
 export const RouteGuard = memo<RouteGuardProps>(
-    ({restrictedWithAuth = false, isPublic = false, loggedOut = false}): JSX.Element | null => {
+    ({restrictedWithAuth = false, isPublic = false}): JSX.Element | null => {
         const isAuth = useAuth();
+        const loggedOut = useAccount(state => state.loggedOut);
 
         const navigate = useNavigate();
         const {pathname} = useLocation();

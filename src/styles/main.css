@@ -4,42 +4,21 @@
 
 :root {
     --font-primary: 'Inter', sans-serif;
+    --font-secondary: 'SF Pro Text', sans-serif;
 
     /* Primary */
-    --color-primary: #F16539;
-    --color-primary-200: rgba(241, 101, 57, 0.2);
-    --color-primary-dark: #EA4D1B;
+    --color-primary: #061178;
 
     /* Secondary */
     --color-secondary: #D9D9D9;
 
     /* Text */
-    --color-white: #FFFCF9;
-    --color-black: #171A1C;
-    --color-gray: #9F9F9F;
+    --color-white: #FFFFFF;
+    --color-white-650: rgba(255, 255, 255, 0.6);
+    --color-black: rgba(0, 0, 0, 0.88);
+    --color-gray: rgba(0, 0, 0, 0.25);
 
-    /* Palette */
-    --color-cream: #F0E6DB;
-    --color-dark: #252731;
-
-    --color-red: #CC3E50;
-    --color-green: #5C7A66;
-    --color-yellow: #D59843;
-    --color-pink: #EECCD7;
-    --color-mustard: #E9E59E;
-    --color-blue: #54A6FF;
-    --color-salad: #9EFF2C;
-
-    /* Effect */
-    --color-white-750: rgba(255, 255, 255, 0.75);
-    --color-black-100: rgba(0, 0, 0, 0.1);
-
-    /* Size */
-    --header-height-md: calc(104px + 8px);
-    --header-height: calc(64px + 8px);
-
-    /* Border Radius */
-    --border-radius-4xl: 32px;
+    --color-menu-item-hover: #5A61A0;
 }
 
 @tailwind base;
@@ -50,7 +29,6 @@
     body {
         font-family: var(--font-primary);
         font-size: 16px;
-        line-height: 140%;
         background-color: var(--color-white) !important;
         color: var(--color-primary) !important;
     }
@@ -96,94 +74,6 @@
 }
 
 @layer components {
-    /* display */
-
-    .display-1 {
-        @apply font-secondary font-bold text-6xl;
-    }
-
-    .display-2 {
-        @apply font-secondary font-bold text-8xl;
-    }
-
-    .display-3 {
-        @apply font-secondary font-bold text-12xl;
-    }
-
-    /* headline */
-
-    .headline-1 {
-        @apply font-text font-extrabold leading-[1.2] text-xl;
-    }
-
-    .headline-2 {
-        @apply font-primary font-bold text-3xl;
-    }
-
-    .headline-2-5 {
-        @apply font-text font-extrabold text-3xl;
-    }
-
-    .headline-3 {
-        @apply font-primary font-bold text-4xl;
-    }
-
-    .headline-3-5 {
-        @apply font-text font-bold leading-[1.25] text-5xl;
-    }
-
-    .headline-4 {
-        @apply font-primary font-bold text-6xl;
-    }
-
-    .headline-4-5 {
-        @apply font-text font-bold text-6xl;
-    }
-
-    /* text */
-
-    .caption {
-        @apply font-text font-medium leading-[1.35] text-xs;
-    }
-
-    .text-1 {
-        @apply font-primary font-bold text-xs;
-    }
-
-    .text-2 {
-        @apply font-primary font-bold leading-[1.25] text-sm;
-    }
-
-    .text-3 {
-        @apply font-text font-semibold leading-[1.35] text-base;
-    }
-
-    .text-4 {
-        @apply font-primary font-bold leading-[1.25] text-base;
-    }
-
-    .text-5 {
-        @apply font-primary font-bold leading-[1.2] text-lg;
-    }
-
-    /* buttons */
-
-    .button-s {
-        @apply font-primary font-bold text-sm;
-    }
-
-    .button-m {
-        @apply font-primary font-bold leading-[1.25] text-base;
-    }
-
-    .button-m2 {
-        @apply font-text font-semibold text-base;
-    }
-
-    .button-m {
-        @apply font-primary font-bold text-xl;
-    }
-
     /* heading */
     .font-h1 {
         @apply font-primary font-bold text-2xl md:text-5xl lg:text-8xl flex items-center gap-x-6 md:gap-x-8;

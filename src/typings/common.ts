@@ -1,5 +1,5 @@
 export interface Common {
-    readonly id: string;
+    readonly id: number;
 }
 
 export interface PaginationResult<T> {

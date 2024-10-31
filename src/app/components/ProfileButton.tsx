@@ -1,10 +1,9 @@
-import {UserOutlined} from '@ant-design/icons';
+import {DownOutlined, UserOutlined} from '@ant-design/icons';
 import styled from '@emotion/styled';
-import {Avatar, Button, Col, Divider, Popover, Row, Typography} from 'antd';
+import {Avatar, Button, Col, Divider, Popover, Row, Space, Typography} from 'antd';
 import {memo} from 'react';
 import {Link} from 'react-router-dom';
-
-import useAccount from '../store/account';
+import useAccount from '@/store/account';
 
 const {Title, Text} = Typography;
 
@@ -31,7 +30,7 @@ const Container = styled.div`
     color: #fff;
 
     &:hover {
-        background-color: var(--main-color);
+        background-color: var(--color-primary);
     }
 `;
 
@@ -41,8 +40,7 @@ const UserInfo = styled.div`
 `;
 
 const ProfileButton = memo((): JSX.Element | null => {
-    const account = useAccount(state => state.account);
-    const setAccount = useAccount(state => state.setAccount);
+    const {account, logout} = useAccount(state => state);
 
     return (
         <Popover
@@ -72,7 +70,7 @@ const ProfileButton = memo((): JSX.Element | null => {
                         </Col>
 
                         <Col>
-                            <Button type="primary" onClick={() => setAccount(undefined)}>
+                            <Button type="primary" onClick={logout}>
                                 Log out
                             </Button>
                         </Col>
@@ -87,9 +85,17 @@ const ProfileButton = memo((): JSX.Element | null => {
             mouseEnterDelay={0}
             mouseLeaveDelay={0.2}
         >
-            <Container>
-                <UserOutlined className="text-black" />
-            </Container>
+            <Space align="start" size={4}>
+                <Space className="text-xs leading-5" direction="vertical" size={4}>
+                    <Text className="flex items-center text-black font-semibold">
+                        {account?.user.first_name}&nbsp;{account?.user.last_name}
+                    </Text>
+
+                    <Text type="secondary">{account?.user.id}</Text>
+                </Space>
+
+                <DownOutlined />
+            </Space>
         </Popover>
     );
 });

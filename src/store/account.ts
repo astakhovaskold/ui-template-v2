@@ -1,11 +1,25 @@
 import {create} from 'zustand/react';
+import {persist, createJSONStorage} from 'zustand/middleware';
 
-import {AccountDTO, AccountState} from '../entities/account/types';
+import {AccountAction, AccountDTO, AccountState} from '@/store/types';
 
-const useAccount = create<AccountState>(set => ({
-    account: undefined,
-    loggedOut: false,
-    setAccount: (account?: AccountDTO) => set({account}),
-}));
+const useAccount = create(
+    persist<AccountState & AccountAction>(
+        set => ({
+            account: undefined,
+            loggedOut: false,
+            auth: (account?: AccountDTO) => {
+                set({account, loggedOut: false});
+            },
+            logout: () => {
+                set({account: undefined, loggedOut: true});
+            },
+        }),
+        {
+            name: `${__UNIQUE_STATE__}_account`,
+            storage: createJSONStorage(() => localStorage),
+        },
+    ),
+);
 
 export default useAccount;

@@ -1,7 +1,8 @@
 import {memo, PropsWithChildren, ReactNode, useContext} from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useLocation} from 'react-router-dom';
 
 import Context from './Context';
+import clsx from 'clsx';
 
 interface MenuItemProps {
     href: string;
@@ -11,13 +12,23 @@ interface MenuItemProps {
 const MenuItem = memo<PropsWithChildren<MenuItemProps>>(({children, href, icon}): JSX.Element | null => {
     const {collapsed} = useContext(Context);
 
+    const {pathname} = useLocation();
+
     const hasView = icon || (!collapsed && children);
 
     if (!hasView) return null;
 
+    const isCurrentPage = href === pathname;
+
     return (
         <li>
-            <NavLink to={href} className="flex gap-4 py-4 px-6">
+            <NavLink
+                to={href}
+                className={clsx(
+                    'flex gap-2 py-4 px-6 rounded-lg leading-normal transition duration-200 hover:!text-white',
+                    isCurrentPage ? 'text-white bg-menu-item-hover' : 'text-white-650',
+                )}
+            >
                 {icon && icon}
                 {children}
             </NavLink>

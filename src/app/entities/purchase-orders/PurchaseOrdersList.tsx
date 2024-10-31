@@ -12,15 +12,15 @@ const itemStyle: CSSProperties = {
     margin: '16px auto',
 };
 
-const UsersList = memo((): JSX.Element | null => {
+const PurchaseOrdersList = memo((): JSX.Element | null => {
     const {data: users, isLoading} = useQuery<Array<UserDTO>>({
         queryKey: ['https://jsonplaceholder.typicode.com/users'],
     });
 
-    if (!users?.length) return null;
+    if (!users?.length) return <Spin spinning={isLoading} />;
 
     return (
-        <Spin spinning={isLoading}>
+        <>
             {users.map(({id, name, address: {geo, ...address}}) => (
                 <div key={id} style={itemStyle}>
                     <div>
@@ -32,8 +32,8 @@ const UsersList = memo((): JSX.Element | null => {
                     </div>
                 </div>
             ))}
-        </Spin>
+        </>
     );
 });
 
-export default UsersList;
+export default PurchaseOrdersList;

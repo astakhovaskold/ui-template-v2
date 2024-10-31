@@ -1,4 +1,4 @@
-import {Common} from '../../typings/common';
+import {Common} from '@/typings/common';
 
 export const enum TYPES {
     LOGIN = 'account/login',
@@ -30,12 +30,18 @@ export interface AccountDTO {
     user: UserDTO;
     access_token: string;
     refresh_token: string;
+    expiration_access_token?: number;
+    expiration_refresh_token?: number;
 }
 
 export interface AccountState {
     account?: AccountDTO;
-    setAccount: (account?: AccountDTO) => void;
     loggedOut: boolean;
+}
+
+export interface AccountAction {
+    auth: (account?: AccountDTO) => void;
+    logout: () => void;
 }
 
 export interface LoginData {

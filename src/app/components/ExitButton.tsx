@@ -1,14 +1,17 @@
 import {Button} from 'antd';
 import {memo, useCallback} from 'react';
+import useAccount from '@/store/account';
 
 const ExitButton = memo((): JSX.Element | null => {
+    const logout = useAccount(state => state.logout);
+
     const onExit = useCallback(() => {
-        // dispatch(logout({quiet: true}));
-    }, []);
+        logout();
+    }, [logout]);
 
     return (
         <Button danger onClick={onExit}>
-            Logout
+            Log out
         </Button>
     );
 });
