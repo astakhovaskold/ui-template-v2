@@ -5,7 +5,6 @@ import {createBrowserRouter} from 'react-router-dom';
 
 import App from '../App';
 
-import Users from '../pages/Users';
 import Welcome from '../pages/Welcome';
 
 import {RouteGuard} from './RouteGuard';
@@ -14,6 +13,8 @@ const NotFound = lazy(() => import('../pages/error/NotFound'));
 const Unauthorized = lazy(() => import('../pages/error/Unauthorized'));
 
 const Auth = lazy(() => import('../pages/Auth'));
+
+const Users = lazy(() => import('../pages/Users'));
 
 const Navigation = memo(() => {
     return (
