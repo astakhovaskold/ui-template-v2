@@ -7,7 +7,7 @@ export const enum TYPES {
     AUTH = 'account/auth',
 }
 
-export enum ROLE {
+export enum ROLES {
     ADMIN = 'ADMIN',
     OBSERVER = 'OBSERVER',
     OPERATOR = 'OPERATOR',
@@ -23,7 +23,7 @@ export interface UserDTO extends Common {
     email: string;
     first_name: string;
     last_name: string;
-    role?: ROLE;
+    role?: ROLES;
 }
 
 export interface AccountDTO {

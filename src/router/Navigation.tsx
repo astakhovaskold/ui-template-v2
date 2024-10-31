@@ -1,4 +1,4 @@
-import {lazy, memo, Suspense} from 'react';
+import {FC, lazy, memo, Suspense} from 'react';
 import {createRoutesFromElements, Route, RouterProvider} from 'react-router';
 
 import {createBrowserRouter} from 'react-router-dom';
@@ -6,15 +6,47 @@ import {createBrowserRouter} from 'react-router-dom';
 import App from '../App';
 
 import Auth from '@/app/pages/Auth';
+
+import {RouteGuard, RouteGuardProps} from './RouteGuard';
+import {Spin} from 'antd';
 import Welcome from '@/app/pages/Welcome';
 
-import {RouteGuard} from './RouteGuard';
-import {Spin} from 'antd';
+export type RouteItem = {
+    path: string;
+    title?: string;
+    component: FC;
+    toNav?: boolean;
+    notInModule?: boolean;
+} & RouteGuardProps;
 
 const NotFound = lazy(() => import('@/app/pages/error/NotFound'));
 const Unauthorized = lazy(() => import('@/app/pages/error/Unauthorized'));
 
 const PurchaseOrders = lazy(() => import('@/app/pages/PurchaseOrders'));
+
+export const routes: Array<RouteItem> = [
+    {
+        path: 'auth',
+        component: Auth,
+        restrictedWithAuth: true,
+        isPublic: true,
+    },
+    {
+        path: '/',
+        component: Welcome,
+    },
+    {
+        path: 'purchase-orders',
+        title: 'Purchase Orders',
+        component: PurchaseOrders,
+        toNav: true,
+    },
+    {
+        path: 'unauthorized',
+        component: Unauthorized,
+        isPublic: true,
+    },
+];
 
 const Navigation = memo(() => {
     return (
@@ -22,45 +54,40 @@ const Navigation = memo(() => {
             <RouterProvider
                 router={createBrowserRouter(
                     createRoutesFromElements(
-                        <>
-                            <Route
-                                path="/"
-                                element={<App />}
-                                errorElement={
-                                    <Suspense fallback={<Spin spinning />}>
-                                        <NotFound />
-                                    </Suspense>
-                                }
-                            >
-                                <Route element={<RouteGuard restrictedWithAuth isPublic />}>
-                                    <Route path="/auth" element={<Auth />} />
-                                </Route>
+                        <Route
+                            key="parent"
+                            path="/"
+                            element={<App />}
+                            errorElement={
+                                <Suspense fallback={<Spin spinning />}>
+                                    <NotFound />
+                                </Suspense>
+                            }
+                        >
+                            {routes.map(({path, title, component: Component, ...guardProps}) => {
+                                const {restrictedWithAuth, isPublic, roles} = guardProps;
 
-                                <Route element={<RouteGuard />}>
+                                const key = path === '/' ? path : `/${path}`;
+
+                                const isProtected = !isPublic || restrictedWithAuth || roles;
+
+                                const children = (
                                     <Route
-                                        path="/purchase-orders"
+                                        key={key}
+                                        path={key}
                                         element={
                                             <Suspense fallback={<Spin spinning />}>
-                                                <PurchaseOrders />
+                                                <Component />
                                             </Suspense>
                                         }
                                     />
-                                </Route>
+                                );
 
-                                <Route
-                                    path="/unauthorized"
-                                    element={
-                                        <Suspense fallback={<Spin spinning />}>
-                                            <Unauthorized />
-                                        </Suspense>
-                                    }
-                                />
+                                if (!isProtected) return children;
 
-                                <Route element={<RouteGuard />}>
-                                    <Route path="/" element={<Welcome />} />
-                                </Route>
-                            </Route>
-                        </>,
+                                return <Route element={<RouteGuard {...guardProps} />}>{children}</Route>;
+                            })}
+                        </Route>,
                     ),
                 )}
             />

@@ -1,10 +1,10 @@
 import {RcFile} from 'antd/es/upload';
-
-import {ROLE, UserDTO} from '../entities/account/types';
+import {ROLES, UserDTO} from '@/store/types';
 
 export default class Utils {
-    static hasAccess(user: UserDTO, roles: Array<ROLE> = []): boolean {
-        return user && (roles.length === 0 || roles.some(role => user.role?.includes(role)));
+    static hasAccess(user: UserDTO, roles: Array<ROLES> = []): boolean {
+        console.log({user, roles});
+        return user && (roles.length === 0 || roles.some(role => role === user.role));
     }
 
     static getBase64 = <T = RcFile>(file: T, callback: (url: string) => void): void | boolean => {

@@ -3,21 +3,25 @@ import {Outlet, useLocation, useNavigate, useSearchParams} from 'react-router-do
 
 import {useAuth} from '../hooks/useAuth';
 import useAccount from '../store/account';
+import useHasAccess from '@/hooks/useHasAccess';
+import {ROLES} from '@/store/types';
 
-interface RouteGuardProps {
+export interface RouteGuardProps {
     restrictedWithAuth?: boolean;
     isPublic?: boolean;
-    loggedOut?: boolean;
+    roles?: Array<ROLES>;
 }
 
 export const RouteGuard = memo<RouteGuardProps>(
-    ({restrictedWithAuth = false, isPublic = false}): JSX.Element | null => {
+    ({restrictedWithAuth = false, isPublic = false, roles}): JSX.Element | null => {
         const isAuth = useAuth();
         const loggedOut = useAccount(state => state.loggedOut);
 
         const navigate = useNavigate();
         const {pathname} = useLocation();
         const [params] = useSearchParams();
+
+        // const hasAccess = useHasAccess(roles);
 
         const callbackUrlParam = params.get('callbackUrl');
 
@@ -36,6 +40,13 @@ export const RouteGuard = memo<RouteGuardProps>(
                 };
             }
 
+            // if (isAuth && !hasAccess) {
+            //     return {
+            //         redirect: '/unauthorized',
+            //         callbackUrl: null,
+            //     };
+            // }
+
             return {
                 redirect: null,
                 callbackUrl: null,
@@ -52,7 +63,7 @@ export const RouteGuard = memo<RouteGuardProps>(
                         : '',
                 );
 
-                const hasSearch = Array.from(search.values()).length > 0;
+                const hasSearch = !!Array.from(search.values())?.length;
 
                 const [redirectPathname, redirectSearch] = redirect.split('?');
 
