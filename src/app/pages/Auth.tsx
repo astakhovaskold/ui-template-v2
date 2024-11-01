@@ -1,7 +1,8 @@
-import {Button, Col, Form, Input, Row} from 'antd';
+import {Button, Form, Input} from 'antd';
 import {memo, useCallback} from 'react';
 import useAccount from '@/store/account';
-import {LoginData, ROLES} from '@/store/types';
+import {LoginData} from '@/store/types';
+import {mockAccount} from '@/libs/mock';
 
 const {Item} = Form;
 
@@ -11,11 +12,7 @@ const Auth = memo((): JSX.Element | null => {
     const onFinish = useCallback(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (values: LoginData) => {
-            auth({
-                user: {id: 8008135, first_name: 'Alex', last_name: 'M', email: 'mail@example.com', role: ROLES.ADMIN},
-                access_token: '0000-0000',
-                refresh_token: '0000-0000',
-            });
+            auth(mockAccount);
         },
         [auth],
     );
