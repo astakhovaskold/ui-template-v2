@@ -1,11 +1,7 @@
-/**
- * Created by ASTAKHOV A.A. on 12.01.2023
- */
-
 import {Col, Row} from 'antd';
 import {memo} from 'react';
 
-import PurchaseOrdersList from '@/app/entities/purchase-orders/PurchaseOrdersList';
+import PurchaseOrdersList from '@/app/modules/purchase-orders/PurchaseOrdersList';
 import Container from '@/app/components/Presentation/Container';
 
 const PurchaseOrders = memo((): JSX.Element | null => {
