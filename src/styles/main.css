@@ -18,7 +18,13 @@
     --color-black: rgba(0, 0, 0, 0.88);
     --color-gray: rgba(0, 0, 0, 0.25);
 
+    --color-auth-page-description: #02409D;
+
     --color-menu-item-hover: #5A61A0;
+
+    /* Background colors */
+    --background-color-sky-blue-mist: #F3F7FF;
+    --background-color-pale-sky: #E5EEFF;
 }
 
 @layer base {
