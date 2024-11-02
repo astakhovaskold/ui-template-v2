@@ -3,7 +3,6 @@ import {ROLES, UserDTO} from '@/store/account/types';
 
 export default class Utils {
     static hasAccess(user: UserDTO, roles: Array<ROLES> = []): boolean {
-        console.log({user, roles});
         return user && (roles.length === 0 || roles.some(role => role === user.role));
     }
 

@@ -3,7 +3,7 @@ import {memo} from 'react';
 
 import useAccount from '@/store/account/account';
 import List from '@/app/components/Modules/List';
-import WideContainer from '@/app/components/Presentation/WideContainer';
+import WideContainer from '@/app/components/Layout/WideContainer';
 
 const Welcome = memo((): JSX.Element | null => {
     const account = useAccount(state => state.account);

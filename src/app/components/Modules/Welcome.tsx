@@ -21,8 +21,6 @@ const Welcome = memo((): JSX.Element => {
     const [first] = links;
     const navigate = useNavigate();
 
-    console.log({links});
-
     useEffect(() => {
         if (first?.path) {
             navigate(first.path, {

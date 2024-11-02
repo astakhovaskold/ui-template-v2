@@ -3,7 +3,7 @@ import {useLocation} from 'react-router-dom';
 
 import Utils from '../libs/Utils';
 
-import modules, {Module} from '@/app/components/Modules/modules';
+import modules, {Module} from '@/app/modules';
 import useAccount from '@/store/account/account';
 import {RouteItem, routes} from '@/router/Navigation';
 

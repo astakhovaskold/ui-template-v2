@@ -5,7 +5,7 @@ import {memo, useMemo} from 'react';
 
 import {Link} from 'react-router-dom';
 
-import modules, {Module} from './modules';
+import modules, {Module} from '../../modules';
 import useAccount from '@/store/account/account';
 
 const Img = styled.img`

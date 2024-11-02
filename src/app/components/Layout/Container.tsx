@@ -1,7 +1,7 @@
 import React, {memo, PropsWithChildren} from 'react';
-import Sidebar from '@/app/components/Sidebar/Sidebar';
+import Sidebar from '@/app/components/Layout/Sidebar/Sidebar';
 import {Layout} from 'antd';
-import Header from '@/app/components/Header/Header';
+import Header from '@/app/components/Layout/Header/Header';
 import {Outlet} from 'react-router';
 import {useAuth} from '@/hooks/useAuth';
 

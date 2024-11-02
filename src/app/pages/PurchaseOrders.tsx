@@ -2,7 +2,7 @@ import {Col, Row} from 'antd';
 import {memo} from 'react';
 
 import PurchaseOrdersList from '@/app/modules/purchase-orders/PurchaseOrdersList';
-import Container from '@/app/components/Presentation/Container';
+import Container from '@/app/components/Layout/Container';
 
 const PurchaseOrders = memo((): JSX.Element | null => {
     return (
