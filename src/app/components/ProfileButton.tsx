@@ -1,9 +1,13 @@
 import {DownOutlined, UserOutlined} from '@ant-design/icons';
 import styled from '@emotion/styled';
 import {Avatar, Button, Col, Divider, Popover, Row, Space, Typography} from 'antd';
-import {memo} from 'react';
+import {memo, useMemo} from 'react';
 import {Link} from 'react-router-dom';
 import useAccount from '@/store/account/account';
+
+interface ProfileButtonProps {
+    simple?: boolean;
+}
 
 const {Title, Text} = Typography;
 
@@ -39,43 +43,60 @@ const UserInfo = styled.div`
     line-height: 1;
 `;
 
-const ProfileButton = memo((): JSX.Element | null => {
+const ProfileButton = memo<ProfileButtonProps>(({simple = false}): JSX.Element | null => {
     const {account, logout} = useAccount(state => state);
+
+    const button = useMemo(
+        () => (
+            <Button type="primary" onClick={logout}>
+                Log out
+            </Button>
+        ),
+        [logout],
+    );
 
     return (
         <Popover
             content={
-                <Content>
-                    <Title level={4}>Profile</Title>
+                <>
+                    {simple ? (
+                        <Row align="middle" justify="end" gutter={8} wrap={false}>
+                            <Col>{button}</Col>
+                        </Row>
+                    ) : (
+                        <Content>
+                            <Title level={4}>Profile</Title>
 
-                    <Divider />
+                            <Divider />
 
-                    <Row align="middle">
-                        <Avatar shape="square" icon={<UserOutlined />} />
+                            <Row align="middle">
+                                <Avatar shape="square" icon={<UserOutlined />} />
 
-                        <UserInfo>
-                            <Text className="text-gray">{account?.user.first_name}</Text>
+                                <UserInfo>
+                                    <Text className="text-gray">{account?.user.first_name}</Text>
 
-                            <br />
+                                    <br />
 
-                            <Text type="secondary">{account?.user.email}</Text>
-                        </UserInfo>
-                    </Row>
+                                    <Text type="secondary">{account?.user.email}</Text>
+                                </UserInfo>
+                            </Row>
 
-                    <Divider />
+                            <Divider />
 
-                    <Row align="middle" justify="end" gutter={8} wrap={false}>
-                        <Col>
-                            <Link to="change-password">Change pasword</Link>
-                        </Col>
+                            <Row align="middle" justify="end" gutter={8} wrap={false}>
+                                <Col>
+                                    <Link to="change-password">Change pasword</Link>
+                                </Col>
 
-                        <Col>
-                            <Button type="primary" onClick={logout}>
-                                Log out
-                            </Button>
-                        </Col>
-                    </Row>
-                </Content>
+                                <Col>
+                                    <Button type="primary" onClick={logout}>
+                                        Log out
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Content>
+                    )}
+                </>
             }
             align={{
                 offset: [5, -10],

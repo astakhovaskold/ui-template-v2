@@ -9,7 +9,7 @@ const Header = memo((): JSX.Element | null => {
             <div className="flex items-center gap-x-4">
                 <NotificationButton />
 
-                <ProfileButton />
+                <ProfileButton simple />
             </div>
         </header>
     );
