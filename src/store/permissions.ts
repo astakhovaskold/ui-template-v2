@@ -1,4 +1,4 @@
-import {ROLES} from '@/store/types';
+import {ROLES} from '@/store/account/types';
 
 export const PO_MANAGE = [ROLES.ADMIN];
 export const PO_VIEW = PO_MANAGE;

@@ -1,4 +1,4 @@
-import {AccountDTO, ROLES} from '@/store/types';
+import {AccountDTO, ROLES} from '@/store/account/types';
 
 export const mockAccount: AccountDTO = {
     user: {

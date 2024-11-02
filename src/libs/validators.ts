@@ -1,13 +1,13 @@
 import {Rule} from 'antd/es/form';
 
-import {PasswordData} from '../typings/common';
+import {PasswordData} from '@/typings/common';
 
 export const compareValidator: Rule = ({getFieldsValue}) => ({
     validator() {
-        const {password, confirm_password}: PasswordData = getFieldsValue(['password', 'confirm_password']);
+        const {password, confirmPassword}: PasswordData = getFieldsValue(['password', 'confirm_password']);
 
         return new Promise((resolve, reject) => {
-            if (confirm_password && password !== confirm_password) {
+            if (confirmPassword && password !== confirmPassword) {
                 reject(new Error('Пароли не совпадают'));
             } else {
                 resolve('');

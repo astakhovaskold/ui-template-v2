@@ -2,7 +2,7 @@ import axios from 'axios';
 import {memo, useEffect} from 'react';
 
 import {useAuth} from '@/hooks/useAuth';
-import useAccount from '@/store/account';
+import useAccount from '@/store/account/account';
 
 const AxiosInterceptorAccess = memo((): JSX.Element | null => {
     const isAuth = useAuth();

@@ -1,7 +1,7 @@
 import {Space} from 'antd';
 import {memo} from 'react';
 
-import useAccount from '@/store/account';
+import useAccount from '@/store/account/account';
 import List from '@/app/components/Modules/List';
 import WideContainer from '@/app/components/Presentation/WideContainer';
 

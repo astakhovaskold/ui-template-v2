@@ -7,7 +7,7 @@ import {FC, memo, useEffect, useMemo, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 
 import modules, {Module} from './modules';
-import useAccount from '@/store/account';
+import useAccount from '@/store/account/account';
 
 const Content = styled.div`
     display: flex;

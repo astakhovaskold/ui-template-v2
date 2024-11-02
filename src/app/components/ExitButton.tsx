@@ -1,6 +1,6 @@
 import {Button} from 'antd';
 import {memo, useCallback} from 'react';
-import useAccount from '@/store/account';
+import useAccount from '@/store/account/account';
 
 const ExitButton = memo((): JSX.Element | null => {
     const logout = useAccount(state => state.logout);

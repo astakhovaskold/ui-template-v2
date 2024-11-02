@@ -1,8 +1,8 @@
 import {Button, Form, Input} from 'antd';
 import {memo, useCallback} from 'react';
-import useAccount from '@/store/account';
-import {LoginData} from '@/store/types';
 import {mockAccount} from '@/libs/mock';
+import useAccount from '@/store/account/account';
+import {LoginData} from '@/store/account/types';
 
 const {Item} = Form;
 

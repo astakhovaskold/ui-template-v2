@@ -1,39 +1,29 @@
-/**
- * Created by ASTAKHOV A.A. on 16.01.2023
- */
-
-import {useQuery} from '@tanstack/react-query';
-import {Spin} from 'antd';
-import {CSSProperties, memo} from 'react';
+import {memo} from 'react';
 
 import {UserDTO} from './types';
+import PaginationTable from '@/app/components/PaginationTable/PaginationTable';
+import {ColumnsType} from 'antd/es/table';
+import API from '@/libs/API';
+import {Link} from 'react-router-dom';
 
-const itemStyle: CSSProperties = {
-    margin: '16px auto',
-};
+const columns: ColumnsType<UserDTO> = [
+    {
+        dataIndex: 'username',
+        title: 'Ник',
+    },
+    {
+        dataIndex: 'name',
+        title: 'Имя',
+    },
+    {
+        key: 'id',
+        align: 'right',
+        render: (_, {id}) => <Link to={`${id}`}>Открыть</Link>,
+    },
+];
 
 const PurchaseOrdersList = memo((): JSX.Element | null => {
-    const {data: users, isLoading} = useQuery<Array<UserDTO>>({
-        queryKey: ['https://jsonplaceholder.typicode.com/users'],
-    });
-
-    if (!users?.length) return <Spin spinning={isLoading} />;
-
-    return (
-        <>
-            {users.map(({id, name, address: {geo, ...address}}) => (
-                <div key={id} style={itemStyle}>
-                    <div>
-                        <strong>{name}</strong>
-                    </div>
-                    <div>
-                        Address:&nbsp;
-                        {Object.values(address).join(', ')}
-                    </div>
-                </div>
-            ))}
-        </>
-    );
+    return <PaginationTable<UserDTO> url={API.users()} columns={columns} />;
 });
 
 export default PurchaseOrdersList;

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import {Avatar, Button, Col, Divider, Popover, Row, Space, Typography} from 'antd';
 import {memo} from 'react';
 import {Link} from 'react-router-dom';
-import useAccount from '@/store/account';
+import useAccount from '@/store/account/account';
 
 const {Title, Text} = Typography;
 

@@ -1,8 +1,9 @@
 import {useMemo} from 'react';
 
 import Utils from '../libs/Utils';
-import {ROLES} from '@/store/types';
-import useAccount from '@/store/account';
+
+import useAccount from '@/store/account/account';
+import {ROLES} from '@/store/account/types';
 
 function useHasAccess(roles: Array<ROLES> = []): boolean {
     const account = useAccount(state => state.account);

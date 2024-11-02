@@ -1,7 +1,6 @@
 import {create} from 'zustand/react';
 import {persist, createJSONStorage} from 'zustand/middleware';
-
-import {AccountAction, AccountDTO, AccountState} from '@/store/types';
+import {AccountAction, AccountDTO, AccountState} from '@/store/account/types';
 
 const useAccount = create(
     persist<AccountState & AccountAction>(

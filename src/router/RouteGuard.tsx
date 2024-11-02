@@ -1,10 +1,10 @@
 import {memo, useEffect, useMemo} from 'react';
 import {Outlet, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 
-import {useAuth} from '../hooks/useAuth';
-import useAccount from '../store/account';
-import useHasAccess from '@/hooks/useHasAccess';
-import {ROLES} from '@/store/types';
+// import useHasAccess from '@/hooks/useHasAccess';
+import {ROLES} from '@/store/account/types';
+import {useAuth} from '@/hooks/useAuth';
+import useAccount from '@/store/account/account';
 
 export interface RouteGuardProps {
     restrictedWithAuth?: boolean;

@@ -1,7 +1,7 @@
-import {ROLES} from '@/store/types';
 import {PO_MODULE} from '@/store/permissions';
 import {RiLuggageCartLine} from '@remixicon/react';
 import {ReactNode} from 'react';
+import {ROLES} from '@/store/account/types';
 
 export interface Module {
     name: string;
