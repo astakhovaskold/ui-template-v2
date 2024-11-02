@@ -5,7 +5,8 @@ import Utils from '../libs/Utils';
 
 import modules, {Module} from '@/app/modules';
 import useAccount from '@/store/account/account';
-import {RouteItem, routes} from '@/router/Navigation';
+import {routes} from '@/router/routes';
+import {RouteItem} from '@/router/types';
 
 function useModuleLinks(forModule = false): [Array<RouteItem>, Module] {
     const account = useAccount(state => state.account);
