@@ -5,6 +5,22 @@ import {RouteItem} from '@/router/types';
 
 const Unauthorized = lazy(() => import('@/app/pages/error/Unauthorized'));
 const PurchaseOrders = lazy(() => import('@/app/pages/PurchaseOrders'));
+const MassUpload = lazy(() => import('@/app/pages/MassUpload'));
+
+const modules: Array<RouteItem> = [
+    {
+        path: 'purchase-orders',
+        title: 'Purchase Orders',
+        component: PurchaseOrders,
+        toNav: true,
+    },
+    {
+        path: 'mass-upload',
+        title: 'Mass Upload',
+        component: MassUpload,
+        toNav: true,
+    },
+];
 
 export const routes: Array<RouteItem> = [
     {
@@ -17,12 +33,7 @@ export const routes: Array<RouteItem> = [
         path: '/',
         component: Welcome,
     },
-    {
-        path: 'purchase-orders',
-        title: 'Purchase Orders',
-        component: PurchaseOrders,
-        toNav: true,
-    },
+    ...modules,
     {
         path: 'unauthorized',
         component: Unauthorized,

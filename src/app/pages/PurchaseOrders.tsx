@@ -1,20 +1,13 @@
-import {Col, Row} from 'antd';
 import {memo} from 'react';
 
 import PurchaseOrdersList from '@/app/modules/purchase-orders/PurchaseOrdersList';
-import Container from '@/app/components/Layout/Container';
+import PageContainer from '@/app/components/Layout/PageContainer';
 
 const PurchaseOrders = memo((): JSX.Element | null => {
     return (
-        <Container>
-            <Row gutter={24} align="middle">
-                <Col flex="auto">
-                    <h1 className="font-h3">Purchase Orders</h1>
-
-                    <PurchaseOrdersList />
-                </Col>
-            </Row>
-        </Container>
+        <PageContainer title="Purchase Orders">
+            <PurchaseOrdersList />
+        </PageContainer>
     );
 });
 

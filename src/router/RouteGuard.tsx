@@ -5,15 +5,17 @@ import {Outlet, useLocation, useNavigate, useSearchParams} from 'react-router-do
 import {ROLES} from '@/store/account/types';
 import {useAuth} from '@/hooks/useAuth';
 import useAccount from '@/store/account/account';
+import Title from '@/app/components/Utils/Title';
 
 export interface RouteGuardProps {
+    title?: string;
     restrictedWithAuth?: boolean;
     isPublic?: boolean;
     roles?: Array<ROLES>;
 }
 
 export const RouteGuard = memo<RouteGuardProps>(
-    ({restrictedWithAuth = false, isPublic = false, roles}): JSX.Element | null => {
+    ({restrictedWithAuth = false, isPublic = false, title}): JSX.Element | null => {
         const isAuth = useAuth();
         const loggedOut = useAccount(state => state.loggedOut);
 
@@ -74,6 +76,12 @@ export const RouteGuard = memo<RouteGuardProps>(
             }
         }, [callbackUrl, isAuth, navigate, redirect]);
 
-        return <Outlet />;
+        return (
+            <>
+                <Title value={title} />
+
+                <Outlet />
+            </>
+        );
     },
 );

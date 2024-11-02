@@ -3,7 +3,7 @@ import {memo} from 'react';
 import Context from './Context';
 import MenuItem from './MenuItem';
 import MenuSection from './MenuSection';
-import {HomeOutlined, ShoppingOutlined} from '@ant-design/icons';
+import {HomeOutlined, ShoppingOutlined, UploadOutlined} from '@ant-design/icons';
 
 interface MenuProps {
     collapsed?: boolean;
@@ -24,6 +24,10 @@ const Menu = memo<MenuProps>(({collapsed = false, className}): JSX.Element | nul
                     <MenuSection>
                         <MenuItem href="/purchase-orders" icon={<ShoppingOutlined />}>
                             Purchase Orders
+                        </MenuItem>
+
+                        <MenuItem href="/mass-upload" icon={<UploadOutlined />}>
+                            Mass Upload
                         </MenuItem>
                     </MenuSection>
                 </ul>
