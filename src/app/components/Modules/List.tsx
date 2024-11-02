@@ -30,7 +30,6 @@ const animationShowing = keyframes`
 const LinkStyled = styled(Link)<{delay: number}>`
     grid-column: 4 span;
     max-width: 100%;
-    padding: 0.5rem;
 
     animation-name: ${animationShowing};
     animation-delay: ${({delay}) => 50 + delay}ms;
@@ -39,6 +38,9 @@ const LinkStyled = styled(Link)<{delay: number}>`
     animation-fill-mode: both;
 
     .ant-card-body {
+        padding: 2rem 1.5rem;
+        border-radius: 4px;
+
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -66,7 +68,7 @@ const List = memo((): JSX.Element => {
     }, [account]);
 
     return (
-        <section className="grid grid-cols-12 gap-10">
+        <div className="grid grid-cols-12 gap-10">
             {availableModules.map(({name, title, image, isNew}, idx) => (
                 <LinkStyled key={name} to={name} delay={idx * 100}>
                     <Badge.Ribbon
@@ -74,17 +76,21 @@ const List = memo((): JSX.Element => {
                         text={isNew ? 'New' : undefined}
                         color="orange"
                     >
-                        <Card className="relative bg-primary rounded">
+                        <Card className="relative bg-primary rounded text-white">
                             {!isNew && <span className="text-xs text-white-650 absolute top-2 right-2">Classic</span>}
 
-                            <Img height={40} width={40} src={image} alt={title} loading="lazy" />
+                            {typeof image === 'string' ? (
+                                <Img height={40} width={40} src={image} alt={title} loading="lazy" />
+                            ) : (
+                                image && image
+                            )}
 
-                            <h2 className="text-xl text-white">{title}</h2>
+                            <h2 className="mt-3 text-xl">{title}</h2>
                         </Card>
                     </Badge.Ribbon>
                 </LinkStyled>
             ))}
-        </section>
+        </div>
     );
 });
 

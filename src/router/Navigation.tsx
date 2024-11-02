@@ -85,7 +85,11 @@ const Navigation = memo(() => {
 
                                 if (!isProtected) return children;
 
-                                return <Route element={<RouteGuard {...guardProps} />}>{children}</Route>;
+                                return (
+                                    <Route key={key} element={<RouteGuard {...guardProps} />}>
+                                        {children}
+                                    </Route>
+                                );
                             })}
                         </Route>,
                     ),

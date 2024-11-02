@@ -14,7 +14,7 @@ const Welcome = memo((): JSX.Element | null => {
 
     return (
         <WideContainer>
-            <section className="w-[848px] mx-auto flex flex-col gap-y-10 text-black font-semibold">
+            <div className="w-[848px] mx-auto flex flex-col gap-y-10 text-black font-semibold">
                 <Space direction="vertical" size={8}>
                     <h1 className="text-3xl">
                         Hi,&nbsp;
@@ -25,7 +25,7 @@ const Welcome = memo((): JSX.Element | null => {
                 </Space>
 
                 <List />
-            </section>
+            </div>
         </WideContainer>
     );
 });

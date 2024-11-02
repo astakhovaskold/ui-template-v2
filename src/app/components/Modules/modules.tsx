@@ -1,11 +1,12 @@
-import PoManagement from '/public/images/logo.png';
 import {ROLES} from '@/store/types';
 import {PO_MODULE} from '@/store/permissions';
+import {RiLuggageCartLine} from '@remixicon/react';
+import {ReactNode} from 'react';
 
 export interface Module {
     name: string;
     title: string;
-    image: string;
+    image: ReactNode;
     permissions: Array<ROLES>;
     isNew?: boolean;
 }
@@ -14,7 +15,7 @@ const modules: Array<Module> = [
     {
         name: 'purchase-orders',
         title: 'Purchase Order Management',
-        image: PoManagement,
+        image: <RiLuggageCartLine />,
         permissions: PO_MODULE,
         isNew: true,
     },

@@ -44,7 +44,7 @@ const Img = styled.img`
 
 const {Text} = Typography;
 
-const Switcher: FC<{module: Module}> = memo(({module}): JSX.Element => {
+const Switcher = memo<{module: Module}>(({module}): JSX.Element => {
     const {pathname} = useLocation();
     const [visible, setVisible] = useState(false);
 
@@ -73,12 +73,14 @@ const Switcher: FC<{module: Module}> = memo(({module}): JSX.Element => {
                 <Content>
                     <Text strong>Change Module</Text>
 
-                    {availableModules.map(({name, title, image}) => (
-                        <Item key={name} to={name} active={name === module.name ? 1 : 0}>
-                            <Img src={image} alt={title} />
-                            <Text>{title}</Text>
-                        </Item>
-                    ))}
+                    {availableModules.map(({name, title, image}) => {
+                        return (
+                            <Item key={name} to={name} active={name === module.name ? 1 : 0}>
+                                {typeof image === 'string' ? <Img src={image} alt={title} /> : image && image}
+                                <Text>{title}</Text>
+                            </Item>
+                        );
+                    })}
                 </Content>
             }
         >
