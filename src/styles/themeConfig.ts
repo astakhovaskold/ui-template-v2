@@ -7,9 +7,9 @@ import {ThemeConfig} from 'antd';
 const themeConfig: ThemeConfig = {
     token: {
         fontSize: 14,
-        fontFamily: 'var(--font-primary)',
-        colorPrimary: 'var(--color-primary)',
-        colorTextSecondary: 'var(--color-gray)',
+        fontFamily: 'Inter',
+        colorPrimary: '#061178',
+        colorTextSecondary: 'rgba(0, 0, 0, 0.25)',
     },
 };
 
