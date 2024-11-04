@@ -11,6 +11,12 @@ const themeConfig: ThemeConfig = {
         colorPrimary: '#061178',
         colorTextSecondary: 'rgba(0, 0, 0, 0.25)',
     },
+    components: {
+        Table: {
+            cellPaddingBlock: 20,
+            cellPaddingInline: 16,
+        },
+    },
 };
 
 export default themeConfig;
