@@ -10,6 +10,7 @@ import useParamsPagination from '@/hooks/pagination/useParamsPagination';
 
 import {PaginationResult, PaginationTableProps} from './types';
 import {useQuery} from '@tanstack/react-query';
+import {COLUMN_WIDTH, IS_SELECTION_ENABLED} from '@/app/components/PaginationTable/settings';
 
 function isColumnType<T>(column: ColumnsType<T>[0]): column is ColumnType<T> {
     return 'dataIndex' in column;
@@ -25,16 +26,9 @@ function PaginationTable<T extends Common>({
     const [filter] = useFilterPagination(uid);
     const {page, size, ordering} = params;
 
-    const {data: listFromQuery, isLoading: loading} = useQuery<Array<T>>({
+    const {data: list, isLoading: loading} = useQuery<PaginationResult<T>>({
         queryKey: [url, Object.assign(params, filter)],
     });
-
-    // TODO: remove later, this for JSONPlaceholer support
-    const list = {
-        content: listFromQuery ?? [],
-        totalElements: 10,
-        totalPages: Math.ceil(size / page),
-    } satisfies PaginationResult<T>;
 
     const defaultSortIsSet = useRef(false);
     useEffect(() => {
@@ -78,7 +72,6 @@ function PaginationTable<T extends Common>({
             total: list?.totalElements ?? 0,
             showSizeChanger: true,
             pageSizeOptions: ['5', '10', '25', '50'],
-            showTotal: total => `Найдено записей ${total}`,
             showQuickJumper: true,
             hideOnSinglePage: false,
         };
@@ -122,6 +115,7 @@ function PaginationTable<T extends Common>({
 
     return (
         <Table<T>
+            rowSelection={IS_SELECTION_ENABLED ? {type: 'checkbox', columnWidth: COLUMN_WIDTH.XS} : undefined}
             columns={columns}
             dataSource={list?.content}
             onChange={onChangePagination}
@@ -129,7 +123,7 @@ function PaginationTable<T extends Common>({
             showSorterTooltip={false}
             rowKey="id"
             loading={loading}
-            size="small"
+            scroll={{x: true}}
         />
     );
 }
