@@ -22,14 +22,16 @@ export default ({mode}: ConfigEnv) => {
         plugins: [react()],
         server: {
             port: env.PORT ? Number(env.PORT) : 3000,
-            proxy: {
-                '/api/v1': {
-                    target: env.API_URL,
-                    changeOrigin: true,
-                    secure: false,
-                    rewrite: path => path.replace('/api/v1', ''),
-                },
-            },
+            proxy: env.API_URL
+                ? {
+                      '/api/v1': {
+                          target: env.API_URL,
+                          changeOrigin: true,
+                          secure: false,
+                          rewrite: path => path.replace('/api/v1', ''),
+                      },
+                  }
+                : undefined,
         },
         resolve: {
             alias: {

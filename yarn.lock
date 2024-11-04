@@ -820,6 +820,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@miragejs/pretender-node-polyfill@npm:^0.1.0":
+  version: 0.1.2
+  resolution: "@miragejs/pretender-node-polyfill@npm:0.1.2"
+  checksum: 10/bb55983a253dc0d4162acac090b062500595c9844bfbd21fe25bc1f926808d0070d710e622aa6285fa16c673a65cf3e05f4b32e888c469f1bde8888a7934ee44
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -2798,6 +2805,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fake-xml-http-request@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "fake-xml-http-request@npm:2.1.2"
+  checksum: 10/3fa247ff0a0af7e050002b3cbe4e2aeccab9f98dcc3afb379a02ffc32efb2571879202b4474a6ff73013999eb1f85aef0f2bf6d96c008dcb307230df873c3db7
+  languageName: node
+  linkType: hard
+
 "fast-deep-equal@npm:^3.1.1, fast-deep-equal@npm:^3.1.3":
   version: 3.1.3
   resolution: "fast-deep-equal@npm:3.1.3"
@@ -3250,6 +3264,13 @@ __metadata:
   version: 4.0.0
   resolution: "indent-string@npm:4.0.0"
   checksum: 10/cd3f5cbc9ca2d624c6a1f53f12e6b341659aba0e2d3254ae2b4464aaea8b4294cdb09616abbc59458f980531f2429784ed6a420d48d245bcad0811980c9efae9
+  languageName: node
+  linkType: hard
+
+"inflected@npm:^2.0.4":
+  version: 2.1.0
+  resolution: "inflected@npm:2.1.0"
+  checksum: 10/1a4d88cf12803663e25214df1f66f027b572c961f014e958a5607c1e95476f42c27e641db0b8779ef7b05c6d4d1ea4744c61d04dfb7cddf6c8fc26acdca1199d
   languageName: node
   linkType: hard
 
@@ -3765,6 +3786,7 @@ __metadata:
     eslint-plugin-prettier: "npm:^5.2.1"
     eslint-plugin-react: "npm:^7.37.2"
     eslint-plugin-react-hooks: "npm:^5.0.0"
+    miragejs: "npm:^0.1.48"
     postcss: "npm:^8.4.47"
     prettier: "npm:^3.3.3"
     qs: "npm:^6.13.0"
@@ -3792,6 +3814,13 @@ __metadata:
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
   checksum: 10/d0ea2dd0097e6201be083865d50c3fb54fbfbdb247d9cc5950e086c991f448b7ab0cdab0d57eacccb43473d3f2acd21e134db39f22dac2d6c9ba6bf26978e3d6
+  languageName: node
+  linkType: hard
+
+"lodash@npm:^4.0.0":
+  version: 4.17.21
+  resolution: "lodash@npm:4.17.21"
+  checksum: 10/c08619c038846ea6ac754abd6dd29d2568aa705feb69339e836dfa8d8b09abbb2f859371e86863eda41848221f9af43714491467b5b0299122431e202bb0c532
   languageName: node
   linkType: hard
 
@@ -3981,6 +4010,18 @@ __metadata:
     minipass: "npm:^3.0.0"
     yallist: "npm:^4.0.0"
   checksum: 10/ae0f45436fb51344dcb87938446a32fbebb540d0e191d63b35e1c773d47512e17307bf54aa88326cc6d176594d00e4423563a091f7266c2f9a6872cdc1e234d1
+  languageName: node
+  linkType: hard
+
+"miragejs@npm:^0.1.48":
+  version: 0.1.48
+  resolution: "miragejs@npm:0.1.48"
+  dependencies:
+    "@miragejs/pretender-node-polyfill": "npm:^0.1.0"
+    inflected: "npm:^2.0.4"
+    lodash: "npm:^4.0.0"
+    pretender: "npm:^3.4.7"
+  checksum: 10/650aa4d9f46835f7bd66eeb54f927978742aa785abf8585a8e3c0c82f68dcfa548bbe603ba9203831a6524caaa1cf607c26f838e7a6d66ccb9491baa8d604f5d
   languageName: node
   linkType: hard
 
@@ -4398,6 +4439,16 @@ __metadata:
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
   checksum: 10/0b9d2c76801ca652a7f64892dd37b7e3fab149a37d2424920099bf894acccc62abb4424af2155ab36dea8744843060a2d8ddc983518d0b1e22265a22324b72ed
+  languageName: node
+  linkType: hard
+
+"pretender@npm:^3.4.7":
+  version: 3.4.7
+  resolution: "pretender@npm:3.4.7"
+  dependencies:
+    fake-xml-http-request: "npm:^2.1.2"
+    route-recognizer: "npm:^0.3.3"
+  checksum: 10/afadd10e22ede523a59cbbf503be033bb75c5d8402ce978dcaa15f4b82c9967ecb64e43a4b003256eb2780fe0e39e0b8b29574a870b50be6e2c026b8902742ed
   languageName: node
   linkType: hard
 
@@ -5275,6 +5326,13 @@ __metadata:
   bin:
     rollup: dist/bin/rollup
   checksum: 10/23d9851bf9ac7f61590e401a790d2f266d46ce71b938429eae3523392a17147637420dfdd8344541b7b54e03ef4af7fa3deac7199f6a4bf5f06a286bd3b3ed97
+  languageName: node
+  linkType: hard
+
+"route-recognizer@npm:^0.3.3":
+  version: 0.3.4
+  resolution: "route-recognizer@npm:0.3.4"
+  checksum: 10/cf1b83378bfe17d945afc087fc10082545cc19d1a5d13f9c1321117780caec40934a7cd5ace69558fadeb17475ac3963d1b59a2f75d144d51082e1964318959a
   languageName: node
   linkType: hard
 
