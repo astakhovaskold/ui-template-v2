@@ -47,6 +47,14 @@ const usePagination = create(
         {
             name: `${__UNIQUE_STATE__}_pagination`,
             storage: createJSONStorage(() => localStorage),
+            // @ts-ignore
+            partialize: state => ({
+                ...state,
+                filter: {
+                    ...state.filter,
+                    search: undefined,
+                },
+            }),
         },
     ),
 );
