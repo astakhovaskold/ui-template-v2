@@ -9,6 +9,8 @@ const {Item} = Form;
 
 const {Title} = Typography;
 
+const {Password} = Input;
+
 const ENVIRONMENT_OPTIONS = [
     {
         label: 'PROD',
@@ -54,7 +56,7 @@ const Auth = memo((): JSX.Element | null => {
                     </Item>
 
                     <Item label="Password" name="password">
-                        <Input.Password autoComplete="current-password" placeholder="Password" />
+                        <Password autoComplete="current-password" placeholder="Password" />
                     </Item>
 
                     <Item label="Select Environment" name="environment">
