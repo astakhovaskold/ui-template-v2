@@ -15,6 +15,8 @@ const themeConfig: ThemeConfig = {
         Table: {
             cellPaddingBlock: 20,
             cellPaddingInline: 16,
+            rowSelectedBg: '#FFFFFF',
+            rowSelectedHoverBg: '#FAFAFA',
         },
     },
 };

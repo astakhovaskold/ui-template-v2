@@ -10,17 +10,27 @@ import useParamsPagination from '@/hooks/pagination/useParamsPagination';
 
 import {PaginationResult, PaginationTableProps} from './types';
 import {useQuery} from '@tanstack/react-query';
-import {COLUMN_WIDTH, IS_SELECTION_ENABLED} from '@/app/components/PaginationTable/settings';
+import {COLUMN_WIDTH} from '@/app/components/PaginationTable/settings';
 
 function isColumnType<T>(column: ColumnsType<T>[0]): column is ColumnType<T> {
     return 'dataIndex' in column;
 }
+
+const rowSelection: TableProps['rowSelection'] = {
+    type: 'checkbox',
+    columnWidth: COLUMN_WIDTH.XS,
+};
+
+const scroll: TableProps['scroll'] = {
+    x: true,
+};
 
 function PaginationTable<T extends Common>({
     url,
     columns: baseColumns,
     uid = url,
     defaultSort,
+    selection = true,
 }: PaginationTableProps<T>) {
     const [params, setParams] = useParamsPagination(uid);
     const [filter] = useFilterPagination(uid);
@@ -74,6 +84,7 @@ function PaginationTable<T extends Common>({
             pageSizeOptions: ['5', '10', '25', '50'],
             showQuickJumper: true,
             hideOnSinglePage: false,
+            align: 'start',
         };
     }, [list, page, size]);
 
@@ -115,7 +126,7 @@ function PaginationTable<T extends Common>({
 
     return (
         <Table<T>
-            rowSelection={IS_SELECTION_ENABLED ? {type: 'checkbox', columnWidth: COLUMN_WIDTH.XS} : undefined}
+            rowSelection={selection ? rowSelection : undefined}
             columns={columns}
             dataSource={list?.content}
             onChange={onChangePagination}
@@ -123,7 +134,7 @@ function PaginationTable<T extends Common>({
             showSorterTooltip={false}
             rowKey="id"
             loading={loading}
-            scroll={{x: true}}
+            scroll={scroll}
         />
     );
 }
