@@ -8,8 +8,8 @@ const {Sider} = Layout;
 
 const Sidebar = memo((): JSX.Element | null => {
     return (
-        <Sider className="bg-primary" width={280}>
-            <div className="text-white overflow-hidden flex flex-col gap-y-2">
+        <Sider className="bg-primary relative" width={280}>
+            <div className="text-white overflow-hidden flex flex-col gap-y-2 sticky top-0">
                 <Logo className="pt-3 px-5 pb-3" />
 
                 <Menu className="px-1" />
