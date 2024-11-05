@@ -2,10 +2,12 @@ import {memo, useEffect, useMemo} from 'react';
 import {Outlet, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
 
 // import useHasAccess from '@/hooks/useHasAccess';
-import {ROLES} from '@/store/account/types';
+
+import PageContainer from '@/app/components/Layout/PageContainer';
+import Title from '@/app/components/Utils/Title';
 import {useAuth} from '@/hooks/useAuth';
 import useAccount from '@/store/account/account';
-import Title from '@/app/components/Utils/Title';
+import {ROLES} from '@/store/account/types';
 
 export interface RouteGuardProps {
     title?: string;
@@ -80,7 +82,13 @@ export const RouteGuard = memo<RouteGuardProps>(
             <>
                 <Title value={title} />
 
-                <Outlet />
+                {isAuth ? (
+                    <PageContainer className="gap-y-2 pb-[7.5rem]" title={title} showBreadcrumbs>
+                        <Outlet />
+                    </PageContainer>
+                ) : (
+                    <Outlet />
+                )}
             </>
         );
     },

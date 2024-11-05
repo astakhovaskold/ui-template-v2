@@ -1,0 +1,14 @@
+trigger: none
+
+pool:
+  vmImage: "ubuntu-latest"
+variables:
+  - template: ci-vars.yaml
+    parameters:
+      repoName: "po-service-ui"
+      projectName: "po-service-ui"
+
+
+steps:
+  - template: ci-steps.yaml
+

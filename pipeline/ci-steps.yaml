@@ -1,0 +1,83 @@
+steps:
+  - task: DownloadSecureFile@1
+    name: keystore # The name with which to reference the secure file's path on the agent, like $(keystore.secureFilePath)
+    inputs:
+      secureFile: digital.p12
+
+  - script: cp $(keystore.secureFilePath) $(System.DefaultWorkingDirectory)
+    displayName: 'moving digital.p12 into the Dockerfile context'
+
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Install Node.js'
+  
+  # - task: SonarQubePrepare@5
+  #   inputs:
+  #     SonarQube: 'SonarQube-LMG K8s'
+  #     scannerMode: 'CLI'
+  #     configMode: 'manual'
+  #     cliProjectKey: 'shukran-wallet-app'
+  #     cliProjectName: 'shukran-wallet-app'
+  #     cliSources: '.'
+  #   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
+  
+  # - task: SonarQubeAnalyze@5
+  #   inputs:
+  #     jdkversion: 'JAVA_HOME_11_X64'
+  #   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
+  
+  # - task: SonarQubePublish@5
+  #   inputs:
+  #     pollingTimeoutSec: '900'
+  #   condition: eq(variables['build.sourceBranch'], 'refs/heads/dev')
+  
+  # - script: |
+  #     # npm install --save bootstrap-icons@1.8.0
+  #     npm run build
+  #   displayName: 'npm install and build'
+  
+  # - script: |
+  #     ls -ltrh
+  #     zip -r build.zip ./build/
+  #     cp ./build.zip $(build.artifactStagingDirectory)/
+  #   displayName: 'Copying NPM build files'
+ 
+  - task: Docker@2
+    inputs:
+      displayName: 'Build Docker image'
+      repository: '$(projectName)'
+      command: build
+      Dockerfile: './Dockerfile'
+      tags: $(imageTag)
+      buildContext: '$(System.DefaultWorkingDirectory)'
+      arguments: '--build-arg ENVIRONMENT=$(ENVIRONMENT)'
+
+  - task: Docker@2
+    inputs:
+      displayName: 'save Docker image'
+      repository: '$(projectName)'
+      command: save
+      arguments: '--output $(build.artifactStagingDirectory)/$(projectName).image.tar $(projectName):$(imageTag)'
+      addPipelineData: false
+
+  - task: HelmInstaller@1
+    displayName: "install helm without tiller"
+    inputs:
+      helmVersionToInstall: 'latest'
+
+  - bash: |
+      cd helm
+      echo $(jq -n --arg version "$(helmChartVersion)" '{helmChartVersion: $version}') > $(build.artifactStagingDirectory)/variables.json
+      echo $(spPassword) | helm registry login $(acrloginservername) --username $(acrUserName) --password-stdin
+      helm package ./$(projectName)
+      mv *.tgz $(build.artifactStagingDirectory)/
+    displayName: "Helm package and store it in staging directory"
+
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: $(helmfrom)
+      targetFolder: $(helmto)
+
+  - publish: $(build.artifactStagingDirectory)
+    artifact: $(projectName)

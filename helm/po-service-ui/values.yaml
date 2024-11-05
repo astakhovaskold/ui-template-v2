@@ -1,0 +1,36 @@
+replicaCount: 2
+
+k8s:
+  namespace: "ns-sahla"
+app:
+  name: "self-serve-frontend"
+service:
+  port: "3000"
+#metrics:
+#  port: "3200"
+
+cpu:
+  target: "459m"
+  #This is 85% of the cpu limit set.
+memory:
+  target: "765Mi"
+  #This is 85% of the memory limit set.
+
+pv:
+  name: "sahla-dev-sc"
+pvc:
+  name: "sahla-pvc-self-serve-frontend-dev" 
+
+
+image:
+  repository: "" #"lmapaz1acrnpdshl01.azurecr.io/lmapaz1acrnpdshl01/tpz-rms-intg-service-uat"
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "20201010.3"
+
+imagePullSecrets: acr-auth
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

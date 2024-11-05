@@ -6,6 +6,7 @@ import {memo, useMemo} from 'react';
 import {Link} from 'react-router-dom';
 
 import modules, {Module} from '../../modules';
+
 import useAccount from '@/store/account/account';
 
 const Img = styled.img`
@@ -30,6 +31,8 @@ const animationShowing = keyframes`
 const LinkStyled = styled(Link)<{delay: number}>`
     grid-column: 4 span;
     max-width: 100%;
+
+    white-space: pre-wrap;
 
     animation-name: ${animationShowing};
     animation-delay: ${({delay}) => 50 + delay}ms;
@@ -57,6 +60,11 @@ const LinkStyled = styled(Link)<{delay: number}>`
         .ant-card-body {
             outline: auto var(--color-primary);
         }
+    }
+
+    svg {
+        height: 40px;
+        width: 40px;
     }
 `;
 

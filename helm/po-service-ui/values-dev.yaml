@@ -1,0 +1,54 @@
+env: dev
+replicaCount: 1
+maxReplicas: 1
+
+k8s:
+  namespace: "ns-po"
+app:
+  name: "po-service-ui"
+service:
+  port: "80"
+# metrics:
+#   port: "9001"
+
+cpu:
+  target: "459m"
+  #This is 85% of the cpu limit set.
+memory:
+  target: "765Mi"
+  #This is 85% of the memory limit set.
+
+pv:
+  name: "rms-dev-sc"
+pvc:
+  name: "rms-pvc-po-service-ui-dev"
+  storage: 5Gi
+
+image:
+  repository: "lmapaz1acrdevrmscld.azurecr.io/lmapaz1acrdevrmscld/po-service-dev"
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+# imagePullSecrets:
+#   name: acr-auth
+
+#service:
+#  type: ClusterIP
+#  port: 80
+
+resources:
+  limits:
+    cpu: 540m
+    memory: 1200Mi
+  requests:
+    cpu: 100m
+    memory: 400Mi   
+
+
+# loadBalancerIP:
+#   10.162.152.103    
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

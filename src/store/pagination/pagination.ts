@@ -1,5 +1,6 @@
-import {create} from 'zustand/react';
 import {createJSONStorage, persist} from 'zustand/middleware';
+import {create} from 'zustand/react';
+
 import {PaginationAction, paginationState} from '@/store/pagination/types';
 
 const usePagination = create(

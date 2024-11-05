@@ -1,6 +1,6 @@
 import {ColumnsType} from 'antd/es/table';
 
-import {Common} from '@/typings/common';
+import {Common, Status} from '@/typings/common';
 
 export interface PaginationTableProps<T extends Common> {
     url: string;
@@ -8,6 +8,7 @@ export interface PaginationTableProps<T extends Common> {
     uid?: string;
     defaultSort?: `${'' | '-'}${string & keyof T}`;
     selection?: boolean;
+    actions?: Array<Action>;
 }
 
 export interface PaginationResult<T> {
@@ -15,3 +16,10 @@ export interface PaginationResult<T> {
     totalElements: number | null;
     totalPages: number | null;
 }
+
+export enum ActionTypes {
+    DOWNLOAD = 'download',
+    DELETE = 'delete',
+}
+
+export type Action = ActionTypes | Status;

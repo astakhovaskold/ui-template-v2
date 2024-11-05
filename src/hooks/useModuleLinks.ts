@@ -4,9 +4,9 @@ import {useLocation} from 'react-router-dom';
 import Utils from '../libs/Utils';
 
 import modules, {Module} from '@/app/modules';
-import useAccount from '@/store/account/account';
 import {routes} from '@/router/routes';
 import {RouteItem} from '@/router/types';
+import useAccount from '@/store/account/account';
 
 function useModuleLinks(forModule = false): [Array<RouteItem>, Module] {
     const account = useAccount(state => state.account);

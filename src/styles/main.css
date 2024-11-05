@@ -17,7 +17,17 @@
     --color-white-650: rgba(255, 255, 255, 0.6);
     --color-black: rgba(0, 0, 0, 0.88);
     --color-gray: rgba(0, 0, 0, 0.25);
+
     --color-blue: #02409D;
+    --color-light: #E6F4FF;
+
+    --color-processing: #1677FF;;
+    --color-warning: #FAAD14;
+    --color-success: #52C41A;
+    --color-error: #FF4D4F;
+    --color-closed: rgba(0, 0, 0, 0.25);
+
+    --color-selection-bg: rgba(0, 116, 255, 0.3);
 
     --color-menu-item-hover: #5A61A0;
 }
@@ -46,7 +56,7 @@
      }*/
 
     ::selection {
-        background: currentColor !important;
+        background: var(--color-selection-bg) !important;
         color: currentColor !important;
     }
 

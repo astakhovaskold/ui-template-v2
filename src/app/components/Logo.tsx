@@ -3,11 +3,13 @@ import {memo} from 'react';
 import {Link} from 'react-router-dom';
 
 interface LogoProps {
+    title: string;
+    url?: string;
     collapsed?: boolean;
     className?: string;
 }
 
-const Logo = memo<LogoProps>(({collapsed = false, className}): JSX.Element | null => {
+const Logo = memo<LogoProps>(({title, url, collapsed = false, className}): JSX.Element | null => {
     return (
         <Link
             to="/"
@@ -19,7 +21,11 @@ const Logo = memo<LogoProps>(({collapsed = false, className}): JSX.Element | nul
                 className,
             )}
         >
-            <img className="h-10" src="/src/assets/images/logo.png" alt="" />
+            {url ? (
+                <img className="h-10" src="/images/logo.png" alt={title} />
+            ) : (
+                <span className="text-white text-2xl font-bold">{title}</span>
+            )}
         </Link>
     );
 });

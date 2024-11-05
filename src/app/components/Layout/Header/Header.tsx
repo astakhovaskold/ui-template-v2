@@ -1,7 +1,7 @@
 import {memo} from 'react';
 
-import ProfileButton from '@/app/components/ProfileButton';
 import NotificationButton from '@/app/components/NotificationButton';
+import ProfileButton from '@/app/components/ProfileButton';
 
 const Header = memo((): JSX.Element | null => {
     return (

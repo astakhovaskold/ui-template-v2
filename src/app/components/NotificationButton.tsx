@@ -1,6 +1,6 @@
-import React, {memo} from 'react';
 import {BellOutlined} from '@ant-design/icons';
 import {Badge} from 'antd';
+import {memo} from 'react';
 
 interface NotificationButtonProps {
     active?: boolean;

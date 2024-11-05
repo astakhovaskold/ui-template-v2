@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app.name }}-configmap
+data:
+  start.sh: |
+    #!/bin/sh
+    # export REACT_APP_API_KEY=$(cat /mnt/secrets-store/OPS-RD-IBM-CLIENT-VALUE)
+    # export REACT_APP_URL= https://apidev.landmarkgroup.com/landmarkgroup/retail-dev/dataMonitoring/salesOrderCount/source/ALL/
+    npm start
+	

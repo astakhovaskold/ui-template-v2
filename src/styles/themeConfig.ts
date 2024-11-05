@@ -13,7 +13,7 @@ const themeConfig: ThemeConfig = {
     },
     components: {
         Table: {
-            cellPaddingBlock: 20,
+            cellPaddingBlock: 16,
             cellPaddingInline: 16,
             rowSelectedBg: '#FFFFFF',
             rowSelectedHoverBg: '#FAFAFA',
@@ -23,6 +23,11 @@ const themeConfig: ThemeConfig = {
         },
         Button: {
             primaryShadow: 'none',
+        },
+        Dropdown: {
+            colorInfoTextActive: '#000000',
+            controlItemBgActive: '#E6F4FF',
+            controlItemBgActiveHover: '#E6F4FF',
         },
     },
 };

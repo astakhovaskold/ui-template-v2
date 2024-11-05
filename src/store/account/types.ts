@@ -24,6 +24,7 @@ export interface UserDTO extends Common {
     first_name: string;
     last_name: string;
     role?: ROLES;
+    avatar?: string;
 }
 
 export interface AccountDTO {

@@ -1,3 +1,5 @@
+export type paginationFilter = Record<string, unknown>;
+
 export interface PaginationFilterData {
     url: string;
     filter: Partial<paginationFilter>;
@@ -13,8 +15,6 @@ export interface PaginationParams {
     size: number;
     ordering?: string;
 }
-
-export type paginationFilter = Record<string, unknown>;
 
 export type paginationState = {
     params: Record<string, PaginationParams>;

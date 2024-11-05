@@ -1,0 +1,22 @@
+variables:
+#   Appresourcegroup: Appresourcegroup
+#   applicationName: applicationName
+#   appServiceConnection: appServiceConnection
+  # DEV variables
+  Appresourcegroup-dev: RG_AZ1_NPD_RMS_DEV
+  applicationName-dev: po-service-ui #lmwaaz1deddev03
+  appServiceConnection-dev: 'SP-SHL-DEV01-RMS Modernization' #APP-DED-DEV01-Price_Protection-Home_Centre
+  # PROD variables
+  # Appresourcegroup-prod: RG_AZ1_RTL_PRD_02
+  #applicationName-prod: lmrdbuiprod
+  #appServiceConnection-prod: SP-SHL-PRD01-Reconciliation Dashboard #APP-DED-PRD01-Price_Protection-Home_Centre
+  # Common variables
+  pathDockerfile: ./Dockerfile
+  # sonarCliProjectKey: Sahla-Portal_Sahla-Portal_AYr-5I8hY6cKRzuDBfEe   #Price_Protection_-_Home_Centre_price_protection_UI
+  # sonarCliProjectName: Sahla-Portal-Sahla-Portal  #sahla-sell-price-protection-reactjs
+  projectName: po-service-ui #price-protection-react-app
+  veracodeAppProfile: RDB DevSecOps
+  sandboxName: po-service-ui #price-protection-react-app
+  imageTag: latest
+  project: 'RMS Modernization' #Price_Protection-Home_Centre
+ 

@@ -24,16 +24,13 @@ export default ({mode}: ConfigEnv) => {
         plugins: [react(), svgr()],
         server: {
             port: env.PORT ? Number(env.PORT) : 3000,
-            proxy: env.API_URL
-                ? {
-                      '/api/v1': {
-                          target: env.API_URL,
-                          changeOrigin: true,
-                          secure: false,
-                          rewrite: path => path.replace('/api/v1', ''),
-                      },
-                  }
-                : undefined,
+            proxy: {
+                '/api/v1': {
+                    target: env.API_URL || 'http://localhost:3000',
+                    changeOrigin: true,
+                    secure: false,
+                },
+            },
         },
         resolve: {
             alias: {

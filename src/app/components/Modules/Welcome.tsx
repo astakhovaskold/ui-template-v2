@@ -1,8 +1,9 @@
 import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import styled from '@emotion/styled';
 import {Card, Col, Row} from 'antd';
-import {FC, memo, useEffect} from 'react';
+import {memo, useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+
 import useModuleLinks from '@/hooks/useModuleLinks';
 
 const CardLink = styled(Link)`

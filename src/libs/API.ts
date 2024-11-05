@@ -1,4 +1,5 @@
-import {PurchaseOrder} from '@/app/modules/purchase-orders/types';
+import {EntityDTO} from '@/app/modules/list/types';
+import {UserDTO} from '@/store/account/types';
 
 export type chunks = Array<unknown>;
 
@@ -27,6 +28,11 @@ export default class API {
         return suffix.length ? `/${suffix}` : '';
     }
 
+    // services
+    protected static get entityService(): string {
+        return '/entity-service';
+    }
+
     // app
     static auth(): string;
     static auth(chunk: 'login' | 'logout' | 'refresh-token' | 'profile'): string;
@@ -36,16 +42,16 @@ export default class API {
     }
 
     static users(): string;
-    static users(id: string, command?: 'profile'): string;
+    static users(id: UserDTO['id'], command?: 'profile'): string;
     static users(...chunks: chunks): string {
         const prefix = '/users';
         return `${this.api}${prefix}${this.joinChunks(...chunks)}`;
     }
 
-    static purchaseOrders(): string;
-    static purchaseOrders(id: PurchaseOrder.DTO['id'], command?: 'profile'): string;
-    static purchaseOrders(...chunks: chunks): string {
-        const prefix = '/purchase-orders';
-        return `${this.api}${prefix}${this.joinChunks(...chunks)}`;
+    static entities(): string;
+    static entities(id: EntityDTO['id']): string;
+    static entities(...chunks: chunks): string {
+        const prefix = '/entities';
+        return `${this.api}${this.entityService}${prefix}${this.joinChunks(...chunks)}`;
     }
 }

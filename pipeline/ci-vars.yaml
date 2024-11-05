@@ -1,0 +1,24 @@
+parameters:
+  containerRegistry: ""
+  repoName: ""
+  projectName: ""
+  booleanTestFailure: ""
+
+variables:
+  projectName: ${{ parameters.projectName }}
+  imageTag: $(Build.BuildNumber)
+  repositoryName: ${{ parameters.projectName }}
+  helmChartVersion: $(Build.BuildNumber)
+  helmfrom: $(Build.SourcesDirectory)/helm
+  helmto: $(Build.ArtifactStagingDirectory)/helm
+  # trivyVersion: 0.21.0
+  # KeyVaultNameCI: LMAPAZ1KYVDEVSHL01
+  # azureSubscriptionCI: SP-SHL-DEV01
+  # ${{ if eq(variables['build.sourceBranch'], 'refs/heads/release') }}:
+  #   ENVIRONMENT: ft
+  # ${{ if eq(variables['build.sourceBranch'], 'refs/heads/dev') }}:
+  #   ENVIRONMENT: ft  
+  # ${{ elseif eq(variables['build.sourceBranch'], 'refs/heads/main') }}:
+  #   ENVIRONMENT: production
+  # ${{ else }}:
+  #   ENVIRONMENT: development

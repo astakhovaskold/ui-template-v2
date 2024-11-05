@@ -1,9 +1,9 @@
+import {FlagOutlined, HomeOutlined} from '@ant-design/icons';
 import {memo} from 'react';
 
 import Context from './Context';
 import MenuItem from './MenuItem';
 import MenuSection from './MenuSection';
-import {HomeOutlined, ShoppingOutlined, UploadOutlined} from '@ant-design/icons';
 
 interface MenuProps {
     collapsed?: boolean;
@@ -17,17 +17,13 @@ const Menu = memo<MenuProps>(({collapsed = false, className}): JSX.Element | nul
                 <ul>
                     <MenuSection>
                         <MenuItem href="/" icon={<HomeOutlined />}>
-                            All Services
+                            All Modules
                         </MenuItem>
                     </MenuSection>
 
                     <MenuSection>
-                        <MenuItem href="/purchase-orders" icon={<ShoppingOutlined />}>
-                            Purchase Orders
-                        </MenuItem>
-
-                        <MenuItem href="/mass-upload" icon={<UploadOutlined />}>
-                            Mass Upload
+                        <MenuItem href="/entities" icon={<FlagOutlined />}>
+                            Entities
                         </MenuItem>
                     </MenuSection>
                 </ul>

@@ -1,0 +1,14 @@
+parameters:
+  projectName: "RMS Modernization"
+variables:
+  helmVersion: 3.2.3
+  HELM_EXPERIMENTAL_OCI: 1
+  acrloginservername: lmapaz1acrdevrmscld.azurecr.io
+  ServiceConnection: ACR-RMS-DEV
+  env: dev
+  k8sNamespace: ns-po
+  AKSresourcegroup: RG_AZ1_NPD_RMS_DEV
+  kubernetesCluster: LMAPAZ1AKSDEVRMS
+  KeyVaultName: LMAPAZ1KYVDEVRMSCLD
+  azureSubscription: SP-SHL-DEV01
+  registryName: lmapaz1acrdevrmscld

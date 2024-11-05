@@ -1,0 +1,64 @@
+steps:
+  - checkout: self
+  - download: ci-pipeline
+    artifact: $(projectName)
+
+  - task: HelmInstaller@1
+    displayName: "install helm"
+    inputs:
+      helmVersionToInstall: '3.6.3'
+
+  - task: AzureKeyVault@1
+    displayName: PullSecrets
+    inputs:
+      azureSubscription: $(azureSubscription)-$(project)
+      KeyVaultName: $(KeyVaultName)
+      SecretsFilter: 'SPN-SHL-AKS-CLIENT-ID,SPN-SHL-AKS-CLIENT-SECRET,SPN-SHL-AKS-TENANT-ID,SHL-ACR-USERNAME,SHL-ACR-PASSWORD'
+      RunAsPreJob: true
+
+  - bash: |
+      export HELM_EXPERIMENTAL_OCI=1
+      echo $(SHL-ACR-PASSWORD) | helm registry login $(acrloginservername) --username $(SHL-ACR-USERNAME) --password-stdin
+      helm chart save $(pipeline.workspace)/ci-pipeline/$(projectName)/*.tgz $(acrloginservername)/charts-$(env)/$(projectName):$(Build.BuildNumber)
+      helm chart push $(acrloginservername)/charts-$(env)/$(projectName):$(Build.BuildNumber)
+    displayName: "Helm Re tag and push to ACR"
+
+  - task: Docker@2
+    displayName: 'Load Image from Tar'
+    inputs:
+      command: load
+      arguments: '--input $(Pipeline.Workspace)/ci-pipeline/$(projectName)/$(projectName).image.tar'
+
+  - bash: |
+      imageVersion=$(jq .helmChartVersion $(pipeline.workspace)/ci-pipeline/$(projectName)/variables.json -r)
+      echo "##vso[task.setvariable variable=imageVersion]$imageVersion"
+    displayName: "Getting image tag from artifact and passing to next task"
+
+  - task: Docker@2
+    displayName: 'ReTag Image with ACR Name - BuildId'
+    inputs:
+      containerRegistry: $(ServiceConnection)-$(project) # This comes from the Service Connections
+      repository: '$(projectName)'
+      command: tag
+      arguments: '$(projectName):$(imageVersion) $(acrloginservername)/$(projectName)-$(env):$(Build.BuildNumber)'
+
+  - task: Docker@2
+    displayName: 'Promoting app container image to $(env) environment'
+    inputs:
+      containerRegistry: $(ServiceConnection)-$(project)
+      repository: '$(projectName)-$(env)'
+      command: push
+      tags: $(Build.BuildNumber)
+
+  - task: Bash@3
+    continueOnError: false
+    displayName: "getting helm chart for this deployment from ACR and deploy to respective AKS cluster"
+    inputs:
+      targetType: 'inline'
+      script: |
+        az login --service-principal -u $(SPN-SHL-AKS-CLIENT-ID) -p '$(SPN-SHL-AKS-CLIENT-SECRET)' --tenant $(SPN-SHL-AKS-TENANT-ID)
+        az aks get-credentials -n $(kubernetesCluster) -g $(AKSresourcegroup) --admin
+        echo $(SHL-ACR-PASSWORD) | helm registry login $(acrloginservername) --username $(SHL-ACR-USERNAME) --password-stdin
+        helm chart pull $(acrloginservername)/charts-$(env)/$(projectName):$(Build.BuildNumber)
+        helm chart export $(acrloginservername)/charts-$(env)/$(projectName):$(Build.BuildNumber) --destination $(pipeline.workspace)/install
+        helm upgrade --namespace $(k8sNamespace) --install --version $(Build.BuildNumber) --values $(pipeline.workspace)/install/$(projectName)/values-$(env).yaml --set env=$(env) --set pv.name=rms-$(env)-sc --set pvc.name=rms-pvc-$(projectName)-$(env) --set image.repository=$(acrloginservername)/$(projectName)-$(env) --set image.tag=$(Build.BuildNumber) $(projectName)-$(env) $(pipeline.workspace)/install/$(projectName)

@@ -1,10 +1,12 @@
-import React, {useCallback} from 'react';
-import {Segmented, SegmentedProps} from 'antd';
-import {Status, StatusFilterLabel} from '@/app/components/StatusFilter/types';
-import Label from '@/app/components/StatusFilter/Label';
-import useFilterPagination from '@/hooks/pagination/useFilterPagination';
-import {SegmentedLabeledOption} from 'antd/es/segmented';
 import {EyeOutlined} from '@ant-design/icons';
+import {Segmented, SegmentedProps} from 'antd';
+import {SegmentedLabeledOption} from 'antd/es/segmented';
+import {useCallback, useMemo} from 'react';
+
+import Label from '@/app/components/StatusFilter/Label';
+import {StatusFilterLabel} from '@/app/components/StatusFilter/types';
+import useFilterPagination from '@/hooks/pagination/useFilterPagination';
+import {Status} from '@/typings/common';
 
 interface StatusFilterProps<T = Status> {
     url: string;
@@ -17,36 +19,45 @@ function StatusFilter<T = Status>({url, total, value, options}: StatusFilterProp
     const [filter, setFilter] = useFilterPagination(url);
 
     const onChange: SegmentedProps<T>['onChange'] = useCallback(
-        (value: T) => {
-            setFilter({status: value});
+        (status: T) => {
+            setFilter({status});
         },
         [setFilter],
+    );
+
+    const optionsFiltered = useMemo(
+        () =>
+            options
+                .filter(({amount}) => Number.isFinite(amount) && amount > 0)
+                .map(({amount, value: status, title, ...option}) => ({
+                    ...option,
+                    value: status,
+                    label: (
+                        <Label amount={amount} status={status as Status}>
+                            {title}
+                        </Label>
+                    ),
+                })),
+        [options],
     );
 
     return (
         <Segmented<T>
             value={(value ?? filter?.status ?? undefined) as T}
             onChange={onChange}
+            className="text-black"
             size="large"
             options={[
                 {
                     value: undefined as T,
                     label: (
-                        <Label key="all" amount={total} status={undefined}>
+                        <Label amount={total} status={undefined}>
                             View All
                         </Label>
                     ),
                     icon: <EyeOutlined />,
                 },
-                ...options.map(({amount, value, title, ...option}) => ({
-                    ...option,
-                    value,
-                    label: (
-                        <Label key={title} amount={amount} status={value as Status}>
-                            {title}
-                        </Label>
-                    ),
-                })),
+                ...optionsFiltered,
             ]}
         />
     );

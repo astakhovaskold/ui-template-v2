@@ -8,10 +8,8 @@ import {ROLES} from '@/store/account/types';
 function useHasAccess(roles: Array<ROLES> = []): boolean {
     const account = useAccount(state => state.account);
 
-    if (!account) return false;
-
     const hasAccess = useMemo<boolean>(() => {
-        return Utils.hasAccess(account.user, roles);
+        return account ? Utils.hasAccess(account.user, roles) : false;
     }, [account, roles]);
 
     return hasAccess;

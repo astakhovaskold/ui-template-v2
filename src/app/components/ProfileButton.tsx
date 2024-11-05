@@ -1,8 +1,9 @@
-import {DownOutlined, UserOutlined} from '@ant-design/icons';
+import {DownOutlined, LogoutOutlined, UserOutlined} from '@ant-design/icons';
 import styled from '@emotion/styled';
 import {Avatar, Button, Col, Divider, Popover, Row, Space, Typography} from 'antd';
 import {memo, useMemo} from 'react';
 import {Link} from 'react-router-dom';
+
 import useAccount from '@/store/account/account';
 
 interface ProfileButtonProps {
@@ -23,21 +24,6 @@ const Content = styled.div`
     }
 `;
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 0 1rem;
-    flex-shrink: 0;
-    font-size: 20px;
-    color: #fff;
-
-    &:hover {
-        background-color: var(--color-primary);
-    }
-`;
-
 const UserInfo = styled.div`
     margin-left: 1rem;
     line-height: 1;
@@ -46,9 +32,10 @@ const UserInfo = styled.div`
 const ProfileButton = memo<ProfileButtonProps>(({simple = false}): JSX.Element | null => {
     const {account, logout} = useAccount(state => state);
 
-    const button = useMemo(
+    const logoutButton = useMemo(
         () => (
-            <Button type="primary" onClick={logout}>
+            <Button onClick={logout} type="text" block className="justify-start">
+                <LogoutOutlined />
                 Log out
             </Button>
         ),
@@ -61,7 +48,7 @@ const ProfileButton = memo<ProfileButtonProps>(({simple = false}): JSX.Element |
                 <>
                     {simple ? (
                         <Row align="middle" justify="end" gutter={8} wrap={false}>
-                            <Col>{button}</Col>
+                            <Col className="w-40">{logoutButton}</Col>
                         </Row>
                     ) : (
                         <Content>
@@ -88,11 +75,7 @@ const ProfileButton = memo<ProfileButtonProps>(({simple = false}): JSX.Element |
                                     <Link to="change-password">Change pasword</Link>
                                 </Col>
 
-                                <Col>
-                                    <Button type="primary" onClick={logout}>
-                                        Log out
-                                    </Button>
-                                </Col>
+                                <Col>{logoutButton}</Col>
                             </Row>
                         </Content>
                     )}
@@ -109,7 +92,9 @@ const ProfileButton = memo<ProfileButtonProps>(({simple = false}): JSX.Element |
             <Space align="start" size={4}>
                 <Space className="text-xs leading-5" direction="vertical" size={4}>
                     <Text className="flex items-center text-black font-semibold">
-                        {account?.user.first_name}&nbsp;{account?.user.last_name}
+                        {account?.user.first_name}
+                        &nbsp;
+                        {account?.user.last_name}
                     </Text>
 
                     <Text type="secondary">{account?.user.id}</Text>

@@ -1,3 +1,4 @@
+import {Spin} from 'antd';
 import {lazy, memo, Suspense} from 'react';
 import {createRoutesFromElements, Route, RouterProvider} from 'react-router';
 
@@ -6,7 +7,7 @@ import {createBrowserRouter} from 'react-router-dom';
 import App from '../App';
 
 import {RouteGuard} from './RouteGuard';
-import {Spin} from 'antd';
+
 import {routes} from '@/router/routes';
 
 const NotFound = lazy(() => import('@/app/pages/error/NotFound'));

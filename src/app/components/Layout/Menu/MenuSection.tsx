@@ -1,4 +1,4 @@
-import React, {memo, PropsWithChildren} from 'react';
+import {memo, PropsWithChildren} from 'react';
 
 const MenuSection = memo<PropsWithChildren>(({children}): JSX.Element | null => {
     return (

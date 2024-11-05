@@ -1,7 +1,8 @@
-import {PO_MODULE} from '@/store/permissions';
-import {RiLuggageCartLine} from '@remixicon/react';
+import {FlagOutlined} from '@ant-design/icons';
 import {ReactNode} from 'react';
+
 import {ROLES} from '@/store/account/types';
+import {ENTITY_MODULE} from '@/store/permissions';
 
 export interface Module {
     name: string;
@@ -13,11 +14,11 @@ export interface Module {
 
 const modules: Array<Module> = [
     {
-        name: 'purchase-orders',
-        title: 'Purchase Order Management',
-        image: <RiLuggageCartLine />,
-        permissions: PO_MODULE,
+        name: 'entities',
+        title: 'Entities',
+        permissions: ENTITY_MODULE,
         isNew: true,
+        image: <FlagOutlined />,
     },
 ];
 

@@ -1,8 +1,8 @@
+import clsx from 'clsx';
 import {memo, PropsWithChildren, ReactNode, useContext} from 'react';
-import {NavLink, useLocation} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 import Context from './Context';
-import clsx from 'clsx';
 
 interface MenuItemProps {
     href: string;

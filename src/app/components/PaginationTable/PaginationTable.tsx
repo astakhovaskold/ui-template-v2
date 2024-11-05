@@ -1,17 +1,20 @@
+import {useQuery} from '@tanstack/react-query';
 import {Table, TableProps} from 'antd';
 import {PaginationProps} from 'antd/es';
 import {ColumnsType, ColumnType} from 'antd/es/table';
 import {SortOrder} from 'antd/es/table/interface';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
-import {Common} from '@/typings/common';
+import Context from './Context';
+import {PaginationResult, PaginationTableProps} from './types';
+
+import ActionBar from '@/app/components/PaginationTable/ActionBar';
+import ActionButton from '@/app/components/PaginationTable/ActionBar/ActionButton';
+import {COLUMN_WIDTH} from '@/app/components/PaginationTable/settings';
 import useFilterPagination from '@/hooks/pagination/useFilterPagination';
 import useParamsPagination from '@/hooks/pagination/useParamsPagination';
 
-import {PaginationResult, PaginationTableProps} from './types';
-import {useQuery} from '@tanstack/react-query';
-import {COLUMN_WIDTH} from '@/app/components/PaginationTable/settings';
-import ActionBar from '@/app/components/PaginationTable/ActionBar';
+import {Common} from '@/typings/common';
 
 function isColumnType<T>(column: ColumnsType<T>[0]): column is ColumnType<T> {
     return 'dataIndex' in column;
@@ -26,19 +29,17 @@ function PaginationTable<T extends Common>({
     columns: baseColumns,
     uid = url,
     defaultSort,
-    selection = true,
+    actions,
 }: PaginationTableProps<T>) {
     const [params, setParams] = useParamsPagination(uid);
-    const [filter] = useFilterPagination(uid);
+    const [filter, setFilter] = useFilterPagination(uid);
     const {page, size, ordering} = params;
 
     const {data: list, isLoading: loading} = useQuery<PaginationResult<T>>({
         queryKey: [url, Object.assign(params, filter)],
     });
 
-    const [selected, setSelected] = useState<Array<T>>([]);
-
-    console.log({selected});
+    const [selected, setSelected] = useState<Array<Common['id']>>([]);
 
     const defaultSortIsSet = useRef(false);
     useEffect(() => {
@@ -47,16 +48,15 @@ function PaginationTable<T extends Common>({
 
     useEffect(() => {
         if (!ordering && defaultSort && !defaultSortIsSet.current) {
-            setParams({ordering: defaultSort});
+            setParams({...params, ordering: defaultSort});
         }
 
         defaultSortIsSet.current = true;
-    }, [defaultSort, setParams, ordering]);
+    }, [defaultSort, setParams, ordering, params]);
 
     const onChangePagination: Required<TableProps<T>>['onChange'] = useCallback(
-        ({current, pageSize}, _, sortProps) => {
+        ({current, pageSize}, filtersProps, sortProps) => {
             let nextOrdering: string | undefined = undefined;
-
             if (sortProps && !Array.isArray(sortProps)) {
                 const {order, field, columnKey} = sortProps;
                 if (order) {
@@ -66,13 +66,28 @@ function PaginationTable<T extends Common>({
                 }
             }
 
+            const hasFilter =
+                filtersProps && Object.values(filtersProps).some(f => typeof f !== 'undefined' && f !== null);
+
+            if (hasFilter) {
+                const payload = new Map<string, unknown>();
+
+                for (const [key, value] of Object.entries(filtersProps)) {
+                    if (value) {
+                        payload.set(key, value);
+                    }
+                }
+
+                setFilter(Object.fromEntries(payload));
+            }
+
             setParams({
                 page: typeof current === 'number' ? current - 1 : undefined,
                 size: pageSize,
                 ordering: nextOrdering,
             });
         },
-        [setParams],
+        [setFilter, setParams],
     );
 
     const paginationConfig = useMemo<PaginationProps>(() => {
@@ -82,9 +97,8 @@ function PaginationTable<T extends Common>({
             total: list?.totalElements ?? 0,
             showSizeChanger: true,
             pageSizeOptions: ['5', '10', '25', '50'],
-            showQuickJumper: true,
+            showQuickJumper: false,
             hideOnSinglePage: false,
-            align: 'start',
         };
     }, [list, page, size]);
 
@@ -99,59 +113,76 @@ function PaginationTable<T extends Common>({
         () =>
             baseColumns.map(column => {
                 const {key} = column;
+
+                const commonProps: typeof column = {
+                    ...column,
+                    sortOrder,
+                };
+
                 if (sortName && column.sorter) {
                     if (key === sortName) {
-                        return {
-                            ...column,
-                            sortOrder,
-                        };
+                        return commonProps;
                     } else if (isColumnType<T>(column)) {
                         const {dataIndex} = column;
                         if (dataIndex === sortName || (Array.isArray(dataIndex) && dataIndex.join('.') === sortName)) {
-                            return {
-                                ...column,
-                                sortOrder,
-                            };
+                            return commonProps;
                         }
                     }
                 }
 
                 return {
-                    ...column,
+                    ...commonProps,
                     sortOrder: null,
                 };
             }),
         [baseColumns, sortOrder, sortName],
     );
 
-    const selectedRowKeys = useMemo(() => selected.map(({id}) => id), [selected]);
+    const hasSelection = !!actions;
+    const isActionBarOpen = selected && selected.length > 0;
 
     const rowSelection = useMemo<TableProps['rowSelection']>(
         () => ({
             type: 'checkbox',
             columnWidth: COLUMN_WIDTH.XS,
-            onSelect: (_, __, rows) => setSelected(rows),
-            selectedRowKeys: selectedRowKeys,
+            onChange: keys => {
+                setSelected(keys as Array<Common['id']>);
+            },
+            selectedRowKeys: selected,
         }),
-        [selectedRowKeys],
+        [selected],
     );
 
     return (
-        <>
+        <Context.Provider value={{url, columns: baseColumns}}>
             <Table<T>
-                rowSelection={selection ? rowSelection : undefined}
+                rowKey="id"
+                rowSelection={hasSelection ? rowSelection : undefined}
                 columns={columns}
                 dataSource={list?.content}
                 onChange={onChangePagination}
                 pagination={paginationConfig}
                 showSorterTooltip={false}
-                rowKey="id"
                 loading={loading}
                 scroll={scroll}
             />
 
-            <ActionBar open={selected && selected.length > 0} onClose={() => setSelected([])} />
-        </>
+            {hasSelection && (
+                <ActionBar open={isActionBarOpen} onClose={() => setSelected([])}>
+                    {actions.map(action => (
+                        <ActionButton
+                            key={action}
+                            listUrl={url}
+                            // TODO: think about
+                            urls={selected.map(id => url + `/${id}`)}
+                            action={action}
+                        >
+                            {action}
+                        </ActionButton>
+                    ))}
+                </ActionBar>
+            )}
+        </Context.Provider>
     );
 }
 

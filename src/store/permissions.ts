@@ -1,6 +1,6 @@
 import {ROLES} from '@/store/account/types';
 
-export const PO_MANAGE = [ROLES.ADMIN];
-export const PO_VIEW = PO_MANAGE;
+export const ENTITY_MANAGE = [ROLES.ADMIN];
+export const ENTITY_VIEW = ENTITY_MANAGE;
 
-export const PO_MODULE = Array.from(new Set([...PO_VIEW]));
+export const ENTITY_MODULE = Array.from(new Set([...ENTITY_VIEW]));

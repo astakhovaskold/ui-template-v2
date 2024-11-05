@@ -1,5 +1,3 @@
-import {PurchaseOrder} from '@/app/modules/purchase-orders/types';
-
-export type Status = PurchaseOrder.STATUS | undefined;
+import {Status} from '@/typings/common';
 
 export type StatusFilterLabel = {amount: number; status: Status};
