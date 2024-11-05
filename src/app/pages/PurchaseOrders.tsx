@@ -1,12 +1,12 @@
 import {memo} from 'react';
 
-import Pagination from '@/app/modules/purchase-orders/Pagination';
 import PageContainer from '@/app/components/Layout/PageContainer';
+import List from '@/app/modules/purchase-orders/List';
 
 const PurchaseOrders = memo((): JSX.Element | null => {
     return (
         <PageContainer title="Purchase Orders">
-            <Pagination />
+            <List />
         </PageContainer>
     );
 });

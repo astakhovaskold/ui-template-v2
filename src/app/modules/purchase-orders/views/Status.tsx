@@ -1,31 +1,15 @@
-import {Tag, TagProps} from 'antd';
-import {CSSProperties, memo, useMemo} from 'react';
+import {Tag} from 'antd';
+import {CSSProperties, memo} from 'react';
 
 import {PurchaseOrder} from '@/app/modules/purchase-orders/types';
+import useStatusColor from '@/app/modules/purchase-orders/hooks/useStatusColor';
 
 type Props = Pick<PurchaseOrder.DTO, 'status' | 'statusName'>;
 
 const textStyle: CSSProperties = {whiteSpace: 'nowrap'};
 
 const Status = memo<Props>(({status, statusName}): JSX.Element | null => {
-    const color = useMemo<TagProps['color']>(() => {
-        switch (status) {
-            case PurchaseOrder.STATUS.CLOSED:
-                return 'default';
-
-            case PurchaseOrder.STATUS.APPROVED:
-                return 'success';
-
-            case PurchaseOrder.STATUS.REJECTED:
-                return 'error';
-
-            case PurchaseOrder.STATUS.PENDING:
-                return 'warning';
-
-            default:
-                return 'default';
-        }
-    }, [status]);
+    const color = useStatusColor(status);
 
     return (
         <Tag style={textStyle} color={color}>

@@ -1,6 +1,3 @@
-/**
- * Created by ASTAKHOV A.A. on 16.01.2023
- */
 import {Common} from '@/typings/common';
 
 interface Geo {

@@ -18,6 +18,9 @@ const themeConfig: ThemeConfig = {
             rowSelectedBg: '#FFFFFF',
             rowSelectedHoverBg: '#FAFAFA',
         },
+        Layout: {
+            bodyBg: '#FFFFFF',
+        },
     },
 };
 
