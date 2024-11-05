@@ -31,4 +31,26 @@ export default class Utils {
         const accept = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp', 'image/gif', 'video/mp4', 'video/webm'];
         return accept.includes(file.type);
     };
+
+    static on<T extends Window | Document | HTMLElement | EventTarget>(
+        obj: T | null,
+        ...args: Parameters<T['addEventListener']> | [string, Function | null, ...any]
+    ): void {
+        if (obj && obj.addEventListener) {
+            obj.addEventListener(...(args as Parameters<HTMLElement['addEventListener']>));
+        }
+    }
+
+    static off<T extends Window | Document | HTMLElement | EventTarget>(
+        obj: T | null,
+        ...args: Parameters<T['removeEventListener']> | [string, Function | null, ...any]
+    ): void {
+        if (obj && obj.removeEventListener) {
+            obj.removeEventListener(...(args as Parameters<HTMLElement['removeEventListener']>));
+        }
+    }
+
+    static isBrowser = typeof window !== 'undefined';
+
+    static isNavigator = typeof navigator !== 'undefined';
 }
