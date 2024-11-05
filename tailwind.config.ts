@@ -30,14 +30,15 @@ const config: Config = {
             gray: {
                 DEFAULT: 'var(--color-gray)',
             },
+            blue: {
+                DEFAULT: 'var(--color-blue)',
+            },
         },
         extend: {
             colors: {
                 primary: 'var(--color-primary)',
                 secondary: 'var(--color-secondary)',
                 'menu-item-hover': 'var(--color-menu-item-hover)',
-                'sky-blue-mist': 'var(--background-color-sky-blue-mist)',
-                'pale-sky': 'var(--background-color-pale-sky)',
             },
         },
     },

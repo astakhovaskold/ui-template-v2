@@ -1,7 +1,7 @@
 import {Button, Checkbox, Form, Input, Select, Typography} from 'antd';
 import {memo, useCallback} from 'react';
+import SignInBg from '@/assets/signin-bg.svg?react';
 import {mockAccount} from '@/libs/mock';
-import SignInRafiki from '../../assets/signIn-rafiki.svg';
 import useAccount from '@/store/account/account';
 import {LoginData} from '@/store/account/types';
 
@@ -33,17 +33,15 @@ const Auth = memo((): JSX.Element | null => {
 
     return (
         <section className="min-h-[100vh] grid grid-cols-12 gap-10">
-            <div className="col-span-6 bg-sky-blue-mist flex flex-col">
-                <div className="bg-pale-sky h-1/5 flex flex-col justify-center items-center py-10 px-28">
-                    <h1 className="text-[var(--color-auth-page-description)] text-5xl leading-[3.5rem] text-center font-bold">
-                        RMS
-                    </h1>
-                    <p className="text-[var(--color-auth-page-description)] text-[2rem] text-center font-light">
+            <div className="col-span-6 bg-[#F3F7FF] flex flex-col">
+                <div className="bg-[#E5EEFF] min-h-[20%] flex flex-col justify-center items-center py-10 px-28">
+                    <h1 className="text-blue text-4xl text-center font-bold">RMS</h1>
+                    <p className="text-blue text-2xl text-center font-light">
                         A platform to view your metrics, upload and approve your POs
                     </p>
                 </div>
                 <div className="flex items-end justify-center flex-1 p-3">
-                    <img src={SignInRafiki} alt="Sign In" className="aspect-square" />
+                    <SignInBg className="aspect-square max-w-xl" />
                 </div>
             </div>
 
