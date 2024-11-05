@@ -19,7 +19,7 @@ const Logo = memo<LogoProps>(({collapsed = false, className}): JSX.Element | nul
                 className,
             )}
         >
-            <img className="h-10" src="/images/logo.png" alt="" />
+            <img className="h-10" src="/src/assets/images/logo.png" alt="" />
         </Link>
     );
 });

@@ -18,7 +18,6 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
-      "@/fonts": ["./public/fonts/*"],
     }
   },
   "include": ["src", "public"],

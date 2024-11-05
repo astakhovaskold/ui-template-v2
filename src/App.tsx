@@ -2,7 +2,7 @@ import {memo} from 'react';
 import {Outlet} from 'react-router';
 
 import './styles/main.css';
-import '/public/fonts/fonts.css?url';
+import '@/assets/fonts/fonts.css?url';
 
 import AxiosInterceptorAccess from '@/app/components/Utils/AxiosInterceptorAccess';
 

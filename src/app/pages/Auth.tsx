@@ -1,6 +1,6 @@
 import {Button, Checkbox, Form, Input, Select, Typography} from 'antd';
 import {memo, useCallback} from 'react';
-import SignInBg from '@/assets/signin-bg.svg?react';
+import SignInBg from '@/assets/images/signin-bg.svg?react';
 import {mockAccount} from '@/libs/mock';
 import useAccount from '@/store/account/account';
 import {LoginData} from '@/store/account/types';
