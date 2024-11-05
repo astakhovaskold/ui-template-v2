@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import svgr from 'vite-plugin-svgr';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {ConfigEnv, defineConfig, loadEnv} from 'vite';
 
@@ -19,7 +20,8 @@ export default ({mode}: ConfigEnv) => {
             __SYSTEM__: `"${APP_NAME}"`,
             __UNIQUE_STATE__: env.DEV ? '"development"' : `"${VERSION}_${BUILD_DATE}"`,
         },
-        plugins: [react()],
+        assetsInclude: ['**/*.svg'],
+        plugins: [react(), svgr()],
         server: {
             port: env.PORT ? Number(env.PORT) : 3000,
             proxy: env.API_URL

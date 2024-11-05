@@ -30,6 +30,9 @@ const config: Config = {
             gray: {
                 DEFAULT: 'var(--color-gray)',
             },
+            blue: {
+                DEFAULT: 'var(--color-blue)',
+            },
         },
         extend: {
             colors: {

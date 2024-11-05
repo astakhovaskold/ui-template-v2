@@ -7,7 +7,7 @@ import {ThemeConfig} from 'antd';
 const themeConfig: ThemeConfig = {
     token: {
         fontSize: 14,
-        fontFamily: 'Inter',
+        fontFamily: 'SF Pro Text, sans-serif',
         colorPrimary: '#061178',
         colorTextSecondary: 'rgba(0, 0, 0, 0.25)',
     },
@@ -20,6 +20,9 @@ const themeConfig: ThemeConfig = {
         },
         Layout: {
             bodyBg: '#FFFFFF',
+        },
+        Button: {
+            primaryShadow: 'none',
         },
     },
 };
